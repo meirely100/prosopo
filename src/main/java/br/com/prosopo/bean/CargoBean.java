@@ -5,14 +5,13 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
+import javax.faces.bean.RequestScoped;
 
 import br.com.prosopo.dao.CargoDao;
 import br.com.prosopo.entity.Cargo;
 
-@ManagedBean(name = "mBeanCargo")
-@SessionScoped
+@RequestScoped
+@ManagedBean
 public class CargoBean {
 
 	private Cargo cargo = new Cargo();
@@ -65,6 +64,10 @@ public class CargoBean {
 	public ArrayList<Cargo> Listar(){
 
 		return (ArrayList<Cargo>) cDao.ListarCargo();
+	}
+	
+	public void teste(){
+		System.out.println("DEU BUA!!!");
 	}
 
 }
