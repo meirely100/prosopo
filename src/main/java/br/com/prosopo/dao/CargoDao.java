@@ -13,24 +13,19 @@ public class CargoDao {
 	private EntityManager manager;
 
 	public void Salvar(Cargo c) {
-
 		EntityManager em = Conexao.getEntityManager();
-
 		em.getTransaction().begin();
-
 		try{
-			if (c.getId() == null) {
+			if (c.getIdCargo() == null) {
 				em.persist(c);
 			} else {
 				em.merge(c);
 			}
 			em.getTransaction().commit();
-
 		}catch (Exception e)
 		{
 			System.out.println(e);
 		}
-
 	}
 
 	@SuppressWarnings("unchecked")

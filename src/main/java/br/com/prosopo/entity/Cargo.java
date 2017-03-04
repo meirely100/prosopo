@@ -1,7 +1,6 @@
 package br.com.prosopo.entity;
 
 import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,17 +16,17 @@ public class Cargo implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
-	private Long id;
+	private Long idCargo;
 
 	@Column(length = 30, nullable = false, unique= true)
 	private String cargo;
 
 	//getts and setts
-	public Long getId() {
-		return id;
+	public Long getIdCargo() {
+		return idCargo;
 	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdCargo(Long id) {
+		this.idCargo = id;
 	}
 	public String getCargo() {
 		return cargo;
@@ -44,7 +43,7 @@ public class Cargo implements Serializable {
 
 	public Cargo(Long id, String cargo) {
 		super();
-		this.id = id;
+		this.idCargo = id;
 		this.cargo = cargo;
 	}
 	// hashCode e Equals
@@ -53,7 +52,7 @@ public class Cargo implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((cargo == null) ? 0 : cargo.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((idCargo == null) ? 0 : idCargo.hashCode());
 		return result;
 	}
 	@Override
@@ -70,10 +69,10 @@ public class Cargo implements Serializable {
 				return false;
 		} else if (!cargo.equals(other.cargo))
 			return false;
-		if (id == null) {
-			if (other.id != null)
+		if (idCargo == null) {
+			if (other.idCargo != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!idCargo.equals(other.idCargo))
 			return false;
 		return true;
 	}

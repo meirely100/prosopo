@@ -5,13 +5,13 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 
 import br.com.prosopo.dao.CargoDao;
 import br.com.prosopo.entity.Cargo;
 
-@RequestScoped
-@ManagedBean
+@ManagedBean(name="mBeanCargo")
+@ViewScoped
 public class CargoBean {
 
 	private Cargo cargo = new Cargo();
@@ -20,6 +20,56 @@ public class CargoBean {
 
 	CargoDao cDao = new CargoDao();
 
+
+
+
+	@PostConstruct
+	public void init() {
+		cargos = cDao.ListarCargo();
+		if(cargos == null){
+//			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Nennhum registro cadastrado!",""));
+		}
+	}
+
+	public void Salvar(Cargo c){
+
+		cDao.Salvar(c);
+		if(cargo.getIdCargo() != 0){
+//			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Cargo alterado com sucesso!", ""));
+		}else{
+//			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Novo cargo salvo com sucesso!", ""));
+		}
+		//lembrar de atualizar a lista de cargos, com o novo cargo cadastrado
+
+	}
+
+	public Cargo editar(Cargo c){
+		return cargo = c;
+	}
+	
+	public void excluir(Cargo c){
+		cDao.excluir(c.getIdCargo());
+		cargos = new ArrayList<Cargo>();
+		cargos = cDao.ListarCargo();
+		// listar cargos
+	}
+	
+	
+	public ArrayList<Cargo> Listar(){
+
+		return (ArrayList<Cargo>) cDao.ListarCargo();
+	}
+	
+	public void teste(){
+		System.out.println("DEU BUA!!!");
+	}
+	
+	
+	
+	
+	
+	
+	
 	//getts and setts
 	public Cargo getCargo() {
 		return cargo;
@@ -38,36 +88,6 @@ public class CargoBean {
 	}
 	public void setCargos(List<Cargo> cargos) {
 		this.cargos = cargos;
-	}
-
-
-	@PostConstruct
-	public void init() {
-		cargos = cDao.ListarCargo();
-		if(cargos == null){
-//			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Nennhum registro cadastrado!",""));
-		}
-	}
-
-	public void Salvar(Cargo c){
-
-		cDao.Salvar(c);
-		if(cargo.getId()!= 0){
-//			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Cargo alterado com sucesso!", ""));
-		}else{
-//			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Novo cargo salvo com sucesso!", ""));
-		}
-		//lembrar de atualizar a lista de cargos, com o novo cargo cadastrado
-
-	}
-
-	public ArrayList<Cargo> Listar(){
-
-		return (ArrayList<Cargo>) cDao.ListarCargo();
-	}
-	
-	public void teste(){
-		System.out.println("DEU BUA!!!");
 	}
 
 }
