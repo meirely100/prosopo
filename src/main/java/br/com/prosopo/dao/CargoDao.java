@@ -31,22 +31,27 @@ public class CargoDao {
 	@SuppressWarnings("unchecked")
 	public List<Cargo> ListarCargo() {
 		EntityManager em = Conexao.getEntityManager();
-
-		Query query = (Query) em.createQuery("from Cargo");
-
+		Query query = (Query) em.createQuery("Select c from Cargo order by c.cargo");
 		return query.getResultList();
 	}
 
-	public void excluir(Long id) {
+	public void excluir(Cargo excluirCargo) {
 
-		EntityManager em = Conexao.getEntityManager();
-		em.getTransaction().begin();// Inicia uma transação com o banco de
-		// dados.
-		Cargo cargo = em.find(Cargo.class, id);// Consulta cargo na base de
-		// dados através do seu ID.
-		em.remove(cargo); // Remove.
-		em.getTransaction().commit();// Finaliza a transação.
-		em.close();
+		try{
+			EntityManager em = Conexao.getEntityManager();
+			if(excluirCargo != null){
+				em.getTransaction().begin();// Inicia uma transação com o banco de dados.
+				em.remove(em.getReference(Cargo.class, excluirCargo.getIdCargo()));
+				em.getTransaction().commit();// Finaliza a transação.
+				em.close();
+			}
+			else{
+				System.out.println("sem registro");
+			}
+		} catch(Exception e){
+			System.out.println("Erro: " + e.getMessage());
+		}
+				
 	}
 
 	public Cargo porId(Long id) {

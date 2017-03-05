@@ -39,7 +39,7 @@ public class CargoBean {
 		}else{
 //			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Novo cargo salvo com sucesso!", ""));
 		}
-		//lembrar de atualizar a lista de cargos, com o novo cargo cadastrado
+		Listar();
 
 	}
 
@@ -48,15 +48,15 @@ public class CargoBean {
 	}
 	
 	public void excluir(Cargo c){
-		cDao.excluir(c.getIdCargo());
-		cargos = new ArrayList<Cargo>();
-		cargos = cDao.ListarCargo();
+		cDao.excluir(c);
+		Listar();
 		// listar cargos
 	}
 	
 	
 	public ArrayList<Cargo> Listar(){
 
+		cargos = new ArrayList<Cargo>();
 		return (ArrayList<Cargo>) cDao.ListarCargo();
 	}
 	

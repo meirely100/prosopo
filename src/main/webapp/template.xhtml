@@ -5,7 +5,7 @@
 <h:head>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta charset="UTF-8" />
-	<title>Olá Mundo!!</title>
+	<title>Cargo</title>
 	<link href="recursos/css/bootstrap.css" rel="stylesheet"
 		type="text/css" />
 	<link href="recursos/css/ie10-viewport-bug-workaround.css"
@@ -30,27 +30,27 @@
 					</button>
 					<a href="" class="navbar-brand">Prosopo</a>
 				</div>
-				<div id="navbar" class="navbar-collapse collapse">
-					<ul class="nav navbar-nav">
-						<li><a href="">Lista de produto</a></li>
-					</ul>
-					<ul class="nav navbar-nav">
-						<li><a href="">Novo de produto</a></li>
-					</ul>
-				</div>
+<!-- 				<div id="navbar" class="navbar-collapse collapse"> -->
+<!-- 					<ul class="nav navbar-nav"> -->
+<!-- 						<li><a href="">Lista de produto</a></li> -->
+<!-- 					</ul> -->
+<!-- 					<ul class="nav navbar-nav"> -->
+<!-- 						<li><a href="">Novo de produto</a></li> -->
+<!-- 					</ul> -->
+<!-- 				</div> -->
 			</div>
 		</nav>
 
 		<div class="jumbotron">
 
-			<h1 style="text-align: center;">OKKKwwwwK</h1>
+			<h1 style="text-align: center;">Cargo</h1>
 
 			<p:spinner />
 
 			<h:form id="form-incluir-contato" prependId="false">
 			<input type="text" jsf:id="nome" jsf:value="#{mBeanCargo.cargo.cargo}"
 				maxlength="30" class="form-control"
-				placeholder="Digite o Nome da Turma" />
+				placeholder="Cargo: " />
 
 
 				<h:dataTable id="table" value="#{mBeanCargo.cargos}" var="cg"
@@ -73,11 +73,9 @@
 					<h:column style="text-align: center">
 						<f:facet name="header">Excluir</f:facet>
 						<h:commandButton value="Excluir" name="botaoExcluir" id="button-excluir"
-							action="#{mBeanCargo.excluir(cg)}"
+							action="#{mBeanCargo.excluir(cg)}" oncomplete="confirmacaoExclusao.show()"
 							class="btn btn-default dropdown-toggle" />
 					</h:column>
-
-
 				</h:dataTable>
 			</h:form>
 
