@@ -31,7 +31,7 @@ public class CargoBean {
 		cargos = cDao.ListarCargo("");
 	}
 	
-	private void teste123() {
+	private void teste123456() {
 		cargos = cDao.ListarCargo("");
 	}
 
