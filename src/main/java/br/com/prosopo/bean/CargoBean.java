@@ -19,28 +19,27 @@ public class CargoBean {
 	private List<Cargo> cargos;
 
 	CargoDao cDao = new CargoDao();
-
-
-
-
 	@PostConstruct
 	public void init() {
-		cargos = cDao.ListarCargo();
+		listar();
 		if(cargos == null){
 //			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Nennhum registro cadastrado!",""));
 		}
 	}
 
-	public void Salvar(Cargo c){
+	private void listar() {
+		cargos = cDao.ListarCargo("");
+	}
 
-		cDao.Salvar(c);
+	public void Salvar(){
+
+		cDao.Salvar(cargo);
 		if(cargo.getIdCargo() != 0){
 //			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Cargo alterado com sucesso!", ""));
 		}else{
 //			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Novo cargo salvo com sucesso!", ""));
 		}
-		Listar();
-
+		listar();
 	}
 
 	public Cargo editar(Cargo c){
@@ -49,27 +48,9 @@ public class CargoBean {
 	
 	public void excluir(Cargo c){
 		cDao.excluir(c);
-		Listar();
+		listar();
 		// listar cargos
 	}
-	
-	
-	public ArrayList<Cargo> Listar(){
-
-		cargos = new ArrayList<Cargo>();
-		return (ArrayList<Cargo>) cDao.ListarCargo();
-	}
-	
-	public void teste(){
-		System.out.println("DEU BUA!!!");
-	}
-	
-	
-	
-	
-	
-	
-	
 	//getts and setts
 	public Cargo getCargo() {
 		return cargo;

@@ -29,9 +29,10 @@ public class CargoDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Cargo> ListarCargo() {
+	public List<Cargo> ListarCargo(String nome) {
 		EntityManager em = Conexao.getEntityManager();
-		Query query = (Query) em.createQuery("Select c from Cargo order by c.cargo");
+		Query query = (Query) em.createQuery("select a from Cargo a where a.cargo like ? order by a.cargo");
+		query.setParameter(1, "%" + nome + "%");
 		return query.getResultList();
 	}
 

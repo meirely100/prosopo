@@ -5,7 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import br.com.prosopo.bean.Funcionario;
+import br.com.prosopo.entity.Funcionario;
 
 public class FuncionarioDao {
 	

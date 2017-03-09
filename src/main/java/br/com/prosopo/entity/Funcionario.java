@@ -1,4 +1,4 @@
-package br.com.prosopo.bean;
+package br.com.prosopo.entity;
 
 import java.util.Date;
 
@@ -13,14 +13,14 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import br.com.prosopo.entity.Cargo;
 
+import br.com.prosopo.bean.Pessoa;
 @Entity
 @Table(name="Funcionario")
 public class Funcionario extends Pessoa{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="idFuncionario")
+	@Column(name="ID")
 	private Long idFuncionario;
 	@Column(name="Matricula")
 	private Long matricula;
@@ -30,7 +30,7 @@ public class Funcionario extends Pessoa{
 	@Temporal(value=TemporalType.DATE)
 	@Column(name="Demissao")
 	private Date dataDemissao;
-	@JoinColumn (name = "Fk_Cargo",  referencedColumnName = "idCargo")
+	@JoinColumn (name = "Fk_Cargo",  referencedColumnName = "ID")
 	@ ManyToOne
 	private Cargo cargoFuncionario;
 	//getts and sett
@@ -106,5 +106,4 @@ public class Funcionario extends Pessoa{
 			return false;
 		return true;
 	}
-	
 }
