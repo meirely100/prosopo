@@ -35,5 +35,6 @@ public class FuncionarioDao {
 		return query.getResultList();
 	}
 
+	
 
 }
