@@ -1,0 +1,172 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta charset="UTF-8" />
+	<title>Contas a Pagar</title>
+	<link href="recursos/css/bootstrap.css" rel="stylesheet"
+		type="text/css" />
+	<link href="recursos/css/ie10-viewport-bug-workaround.css"
+		rel="stylesheet" type="text/css" />
+	<link href="recursos/css/navbar.css" rel="stylesheet" type="text/css" />
+	<link href="recursos/css/jquery.dataTables.min.css" rel="stylesheet" />
+	<link href="recursos/css/nivo-lightbox.css" rel="stylesheet" />
+	<link href="recursos/css/animate.css" rel="stylesheet" />
+
+</h:head>
+
+<h:body>
+	<div class="container">
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+						aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a href="" class="navbar-brand">Prosopo</a>
+				</div>
+			</div>
+		</nav>
+		<h:form id="form-Conta-Pagar" prependId="false"
+			styleClass="form-horizontal">
+			<div class="jumbotron">
+				<h1 style="text-align: center">Contas a pagar</h1>
+				<div class="panel-body">
+					<p:commandButton value="Nova" oncomplete="PF('dialogo').show();" />
+				</div>
+			</div>
+			
+			
+			<h:form >
+			<h:panelGrid columns="4" width="100%">
+				<p:outputLabel value="Titulo da Divida" />
+				<p:inputText  maxlength="45" size="30"  value="#{mBeanContaPagar.contaP.titulo}" />
+
+				<p:outputLabel value="Valor" />
+				<p:inputNumber maxlength="45" size="30" value="#{mBeanContaPagar.contaP.valor}"/>
+				
+				<p:outputLabel value="Descrição" />
+				<p:inputTextarea maxlength="100" size="100" value="#{mBeanContaPagar.contaP.descricao}"/>
+				
+				<p:outputLabel value="Forma de Pagamento" />
+				<p:inputText maxlength="45" size="30" value="#{mBeanContaPagar.contaP.formaPagamento}"/>
+				
+				<p:outputLabel value="status" />
+				<p:inputText maxlength="45" size="30" value="#{mBeanContaPagar.contaP.status}"/>
+				
+				
+				<p:outputLabel for="button"  value="Data Vencimento:" />
+				<!--  <p:inputMask  mask="9999-99-99"  value="#{mBeanContaPagar.contaP.dataVencimento}">
+				
+				<f:convertDateTime pattern="d-M-yyyy" />
+				</p:inputMask> -->
+                 <p:calendar id="button" value="#{mBeanContaPagar.contaP.dataVencimento}" showOn="button" />
+                
+                <p:outputLabel for="popup"  style="text-align: left"    value="Data de Pagamento:" />
+               <!--   <p:inputMask mask="9999-99-99" value="#{mBeanContaPagar.contaP.dataPagamento}">
+                <f:convertDateTime pattern="d-M-yyyy" />
+                </p:inputMask> -->
+                <p:calendar id="popup" value="#{mBeanContaPagar.contaP.dataPagamento}" />
+                
+			</h:panelGrid>
+
+
+			<h:panelGrid columns="2">
+				<h:commandButton  update="@form" id="button-salvar"
+					jsf:action="#{mBeanContaPagar.Salvar()}" value="Salvar"
+					class="btn btn-default dropdown-toggle" />
+				<p:commandButton value="Cancelar" oncomplete="PF('dialogo').hide();" />
+
+			</h:panelGrid>
+
+		</h:form>
+			</h:form>
+			
+			<h:form>
+			<p:dataTable value="#{mBeanContaPagar.contasP}"   var="cp" >
+					<p:column headerText="Titulo">
+						<h:outputText value="#{cp.titulo}"/>
+					</p:column>
+
+					<p:column headerText="Data de Pagamento">
+						<h:outputText value="#{cp.dataPagamento}" />
+					</p:column>
+					
+					<p:column headerText="Data de Vencimento">
+						<h:outputText value="#{cp.dataVencimento}" />
+					</p:column>
+
+					<p:column headerText="Descrição">
+						<h:outputText value="#{cp.descricao}" />
+					</p:column>
+					
+					<p:column headerText="Valor">
+						<h:outputText value="#{cp.descricao}" />
+					</p:column>
+
+					<p:column headerText="Status">
+						<h:outputText value="#{cp.status}" />
+					</p:column>
+					
+					<p:column >
+					
+					<f:facet name="header" >Opções</f:facet>
+							<h:commandButton style="background-color:tomato; size=10% " value="Excluir"
+								name="botaoExcluir" id="button-excluir"
+								action="#{mBeanContaPagar.excluir(cp)}"
+								class="btn btn-default dropdown-toggle" />
+							<h:commandButton style="size=10% " value="Editar"
+								name="botao" id="button-edit" action="#{mBeanContaPagar.editar(cp)}"
+								class="btn btn-default dropdown-toggle" />
+					</p:column>
+				</p:dataTable>
+
+			</h:form>
+	</div>
+
+	<!-- Inicio da tela flutuante cadastrar                                              -->
+
+	<p:dialog header="Contas a Pagar" widgetVar="dialogo" draggable="false"
+		resizable="false" modal="true" closable="false" >
+		<h:form>
+			<h:panelGrid columns="2">
+				<p:outputLabel value="Titulo da Divida" />
+				<p:inputText maxlength="45" size="30" />
+
+				<p:outputLabel value="Valor" />
+				<p:inputNumber maxlength="45" size="30" />
+				
+				<p:outputLabel value="Descrição" />
+				<p:inputTextarea maxlength="100" size="100" />
+				
+				
+				<p:outputLabel for="button" value="Data:" />
+                <p:calendar id="button" value="#{calendarView.date3}" showOn="button" />
+                
+			</h:panelGrid>
+
+
+			<h:panelGrid columns="2">
+				<h:commandButton id="button-salvar"
+					jsf:action="#{mBeanContaPagar.Salvar()}" value="Salvar"
+					class="btn btn-default dropdown-toggle" />
+				<p:commandButton value="Cancelar" oncomplete="PF('dialogo').hide();" />
+
+			</h:panelGrid>
+
+		</h:form>
+	</p:dialog>
+
+</h:body>
+
+<!-- tabela -->
+<script src="js/jquery.dataTables.min.js" />
+<script src="js/dataTablePortugues.js"></script>
+<script src="./js/designTable.js" />
+</html>

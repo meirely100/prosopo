@@ -4,21 +4,23 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import br.com.prosopo.entity.Cargo;
 
+import br.com.prosopo.entity.ContaReceber;
 
-public class CargoDao {
-
+public class ContaReceberDAO {
+	
+	
+	
 	private EntityManager manager;
 
-	public void Salvar(Cargo c) {
+	public void Salvar(ContaReceber cr) {
 		EntityManager em = Conexao.getEntityManager();
 		em.getTransaction().begin();
 		try{
-			if (c.getIdCargo() == null) {
-				em.persist(c);
+			if (cr.getIdcontaReceber() == null) {
+				em.persist(cr);
 			} else {
-				em.merge(c);
+				em.merge(cr);
 			}
 			em.getTransaction().commit();
 		}catch (Exception e)
@@ -26,22 +28,22 @@ public class CargoDao {
 			System.out.println(e);
 		}
 	}
-
+	
 	@SuppressWarnings("unchecked")
-	public List<Cargo> ListarCargo(String nome) {
+	public List<ContaReceber> ListarContaR(String titulo) {
 		EntityManager em = Conexao.getEntityManager();
-		Query query = (Query) em.createQuery("select a from Cargo a where a.cargo like ? order by a.cargo");
-		query.setParameter(1, "%" + nome + "%");
+		Query query = (Query) em.createQuery("select a from ContaReceber a where a.titulo like ? order by a.titulo");
+		query.setParameter(1, "%" + titulo + "%");
 		return query.getResultList();
 	}
-
-	public void excluir(Cargo excluirCargo) {
+	
+	public void excluir(ContaReceber excluirContaR) {
 
 		try{
 			EntityManager em = Conexao.getEntityManager();
-			if(excluirCargo != null){
+			if(excluirContaR != null){
 				em.getTransaction().begin();// Inicia uma transação com o banco de dados.
-				em.remove(em.getReference(Cargo.class, excluirCargo.getIdCargo()));
+				em.remove(em.getReference(ContaReceber.class, excluirContaR.getIdcontaReceber()));
 				em.getTransaction().commit();// Finaliza a transação.
 				em.close();
 			}
@@ -53,23 +55,25 @@ public class CargoDao {
 		}
 				
 	}
-
-	public Cargo porId(Long id) {
-		return manager.find(Cargo.class, id);
+	
+	
+	public ContaReceber porId(Long idContaReceber) {
+		return manager.find(ContaReceber.class, idContaReceber);
 	}
-
-	public Cargo buscarNome(String nome) {
+	
+	public ContaReceber buscarNome(String titulo) {
 
 		EntityManager em = Conexao.getEntityManager();
 
-		Query query = (Query) em.createQuery("select a from Cargo a where a.cargo like ? ");
-		query.setParameter(1, "%" + nome + "%");
+		Query query = (Query) em.createQuery("select a from ContaRecber a where a.titulo like ? ");
+		query.setParameter(1, "%" + titulo + "%");
 		if(query.getResultList() != null){
-			return (Cargo) query.getResultList();
+			return (ContaReceber) query.getResultList();
 		}else{
 			return null;
 		}
 
 	}
+	
 
 }

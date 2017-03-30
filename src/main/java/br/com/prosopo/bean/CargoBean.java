@@ -19,6 +19,7 @@ public class CargoBean {
 	private List<Cargo> cargos;
 
 	CargoDao cDao = new CargoDao();
+	
 	@PostConstruct
 	public void init() {
 		listar();

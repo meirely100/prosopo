@@ -1,0 +1,105 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf" 
+	xmlns:p="http://primefaces.org/ui">
+	
+<h:head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta charset="UTF-8" />
+	<title>Index</title>
+	<link href="recursos/css/bootstrap.css" rel="stylesheet" type="text/css" />
+	<link href="recursos/css/ie10-viewport-bug-workaround.css" rel="stylesheet" type="text/css" />
+	<link href="recursos/css/navbar.css" rel="stylesheet" type="text/css" />
+	<link href="recursos/css/jquery.dataTables.min.css" rel="stylesheet" />
+	<link href="recursos/css/nivo-lightbox.css" rel="stylesheet" />
+	<link href="recursos/css/animate.css" rel="stylesheet" />
+
+</h:head>
+<h:body>
+
+<h:form>
+
+<div class="container">
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+						aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a href="" class="navbar-brand">Prosopo</a>
+				</div>
+			</div>
+		</nav>
+		<h:form id="form-cargo" prependId="false" styleClass="form-horizontal">
+			<div class="jumbotron">
+				<h1 style="text-align: center">Pagina Inicial </h1>
+				
+			</div>
+			
+		</h:form>
+	</div>
+    <p:growl autoUpdate="true"/>
+ 
+    <p:panelMenu style="width:300px" size="200px">
+       
+        <p:submenu label="Agenda">  
+        </p:submenu>
+        
+        <p:submenu label="Anamnese">
+            <p:menuitem value="Grupos de Anamnese"  icon="ui-icon-disk" />
+            <p:menuitem value="Modelos de Anamnes"   icon="ui-icon-arrowrefresh-1-w" />
+        </p:submenu>
+        
+        <p:submenu label="Cadastros">
+            <p:menuitem value="Clientes"  icon="ui-icon-disk" />
+            <p:menuitem value="Funcionarios"   icon="ui-icon-arrowrefresh-1-w" />
+            <p:menuitem value="Convênios"   icon="ui-icon-arrowrefresh-1-w" />
+            <p:menuitem value="Estabelecimento"   icon="ui-icon-arrowrefresh-1-w" />
+        </p:submenu>
+        
+        <p:submenu label="Pacientes">
+            <p:menuitem value="Agenda"  icon="ui-icon-disk" />
+            <p:menuitem value="Anamnese"   icon="ui-icon-arrowrefresh-1-w" />
+            <p:menuitem value="Atividades"   icon="ui-icon-arrowrefresh-1-w" />
+            <p:menuitem value="Documentos"   icon="ui-icon-arrowrefresh-1-w" />
+            <p:menuitem value="Encaminhamentos"   icon="ui-icon-arrowrefresh-1-w" />
+            <p:menuitem value="Medicações"   icon="ui-icon-arrowrefresh-1-w" />
+            <p:menuitem value="Realizar Alta"   icon="ui-icon-arrowrefresh-1-w" />
+            <p:menuitem value="Sessões"   icon="ui-icon-arrowrefresh-1-w" />
+            <p:menuitem value="Testes"   icon="ui-icon-arrowrefresh-1-w" />
+            <p:menuitem value="Configurações"   icon="ui-icon-arrowrefresh-1-w" />
+               
+        </p:submenu>
+        
+        <p:submenu label="Documentos">
+          
+        </p:submenu>
+        
+        <p:submenu label="Sessões">
+          
+        </p:submenu>
+        
+        <p:submenu label="Relatorios">
+          
+        </p:submenu>
+        
+        <p:submenu label="Financeiro">
+        	<p:menuitem value="Contas a pagar"   icon="ui-icon-arrowrefresh-1-w" />
+            <p:menuitem value="Contas a Receber"   icon="ui-icon-arrowrefresh-1-w"/> 
+        </p:submenu>
+        
+        
+    </p:panelMenu>
+</h:form>
+</h:body>
+
+<!-- tabela -->
+<script src="js/jquery.dataTables.min.js" />
+<script src="js/dataTablePortugues.js"></script>
+<script src="./js/designTable.js" />
+</html>
