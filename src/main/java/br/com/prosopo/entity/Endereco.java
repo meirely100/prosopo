@@ -1,4 +1,4 @@
-package br.com.prosopo.bean;
+package br.com.prosopo.entity;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;

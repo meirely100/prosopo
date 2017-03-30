@@ -5,13 +5,14 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 
 import br.com.prosopo.dao.CargoDao;
 import br.com.prosopo.entity.Cargo;
 
 @ManagedBean(name="mBeanCargo")
-@ViewScoped
+@SessionScoped
 public class CargoBean {
 
 	private Cargo cargo = new Cargo();
@@ -32,10 +33,6 @@ public class CargoBean {
 		cargos = cDao.ListarCargo("");
 	}
 	
-	private void teste() {
-		cargos = cDao.ListarCargo("");
-	}
-
 	public void Salvar(){
 
 		cDao.Salvar(cargo);
@@ -44,6 +41,7 @@ public class CargoBean {
 		}else{
 //			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Novo cargo salvo com sucesso!", ""));
 		}
+		limpar();
 		listar();
 	}
 
@@ -53,8 +51,14 @@ public class CargoBean {
 	
 	public void excluir(Cargo c){
 		cDao.excluir(c);
+		limpar();
 		listar();
 		// listar cargos
+	}
+	
+	public void limpar(){
+		cargo = new Cargo();
+		cargos = new ArrayList<Cargo>();
 	}
 	//getts and setts
 	public Cargo getCargo() {
