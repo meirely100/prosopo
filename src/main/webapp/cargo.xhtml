@@ -38,13 +38,10 @@
 				<div class="panel-body">
 					
 						<h:outputLabel value="Cargo: " />
-						<h:inputText id="nome" jsf:value="#{mBeanCargo.cargo.cargo}"
+						<h:inputText id="nome" value="#{mBeanCargo.cargo.cargo}"
 							maxlength="40" />
-						<!-- 			<input type="text" jsf:id="nome" jsf:value="#{mBeanCargo.cargo.cargo}" -->
-						<!-- 				maxlength="30" class="form-control" -->
-						<!-- 				placeholder="informe o cargo " /> -->
 						<h:commandButton id="button-salvar"
-							jsf:action="#{mBeanCargo.Salvar()}" value="Salvar"
+							action="#{mBeanCargo.salvar()}" value="Salvar"
 							class="btn btn-default dropdown-toggle" />
 				</div>
 			</div>
@@ -83,7 +80,7 @@
 </h:body>
 
 <!-- tabela -->
-<script src="js/jquery.dataTables.min.js" />
-<script src="js/dataTablePortugues.js"></script>
-<script src="./js/designTable.js" />
+<script src="recursos/js/jquery.dataTables.min.js" />
+<script src="recursos/js/dataTablePortugues.js"></script>
+<script src="recursos/js/designTable.js" />
 </html>

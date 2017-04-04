@@ -12,7 +12,7 @@ public class CargoDao {
 
 	private EntityManager manager;
 
-	public void Salvar(Cargo c) {
+	public void salvar(Cargo c) {
 		EntityManager em = Conexao.getEntityManager();
 		em.getTransaction().begin();
 		try{
@@ -29,9 +29,9 @@ public class CargoDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Cargo> ListarCargo(String nome) {
+	public List<Cargo> listarCargo(String nome) {
 		EntityManager em = Conexao.getEntityManager();
-		Query query = (Query) em.createQuery("select a from Cargo a where a.cargo like ? order by a.cargo");
+		Query query = (Query) em.createQuery("select c from Cargo c where c.cargo like ? order by c.cargo");
 		query.setParameter(1, "%" + nome + "%");
 		return query.getResultList();
 	}
@@ -55,9 +55,11 @@ public class CargoDao {
 				
 	}
 
-	public Cargo porId(Long id) {
-		return manager.find(Cargo.class, id);
-	}
+//	public Cargo buscaPorId(Long id) {
+//		System.out.println("meu id: " + id);
+//		return manager.find(Cargo.class, id);
+//		
+//	}
 
 	public Cargo buscarNome(String nome) {
 
@@ -71,6 +73,13 @@ public class CargoDao {
 			return null;
 		}
 
+	}
+	
+	public Cargo buscaPorId(Long id){
+		manager = Conexao.getEntityManager();
+		Query query = (Query) manager.createQuery("select c from Cargo c where c.idCargo = ?  ");
+		((javax.persistence.Query) query).setParameter(1, id);
+		return (Cargo) query.getSingleResult();
 	}
 
 }

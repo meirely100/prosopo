@@ -38,7 +38,7 @@ public class Cargo implements Serializable {
 	//Construtores
 
 	public Cargo(){
-
+		super();
 	}
 
 	public Cargo(Long id, String cargo) {

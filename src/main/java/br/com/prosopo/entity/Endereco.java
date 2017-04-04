@@ -3,38 +3,57 @@ package br.com.prosopo.entity;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 @MappedSuperclass
 public abstract class Endereco {
-	
-	@Column(name="CEP", nullable=false)
+	@SerializedName("cep")
+	@Expose
+	@Column(name="CEP", nullable=true)
 	private String cep;
-	@Column(name="Endereco", nullable=false)
-	private String rua;
+	@SerializedName("logradouro")
+	@Expose
+	@Column(name="Logradouro", nullable=false)
+	private String logradouro;
 	@Column(name="Numero", nullable=false)
+	
 	private String numero;
+	@SerializedName("complemento")
+	@Expose
 	@Column(name="Complemento", nullable=false)
 	private String complemento;
+	@SerializedName("bairro")
+	@Expose
 	@Column(name="Bairro", nullable=false)
 	private String bairro;
+	@SerializedName("cidade")
+	@Expose
 	@Column(name="Cidade", nullable=false)
 	private String cidade;
+	@SerializedName("uf")
+	@Expose
 	@Column(name="Estado", nullable=false)
-	private String estado;
-	@Column(name="Pais", nullable=false)
-	private String pais;
+	private String uf;
 	
 	//getts and setts
+public Endereco(){
+		
+	}
 	public String getCep() {
 		return cep;
 	}
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
-	public String getRua() {
-		return rua;
+	public String getLogradouro() {
+		return logradouro;
 	}
-	public void setRua(String rua) {
-		this.rua = rua;
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
 	}
 	public String getNumero() {
 		return numero;
@@ -60,39 +79,46 @@ public abstract class Endereco {
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
 	}
-	public String getEstado() {
-		return estado;
+	public String getUf() {
+		return uf;
 	}
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-	public String getPais() {
-		return pais;
-	}
-	public void setPais(String pais) {
-		this.pais = pais;
-	}
+	public void setUf(String uf) {
+		this.uf = uf;
+	}	
 	//Construtores
-	public Endereco(){
-		
-	}
 	public Endereco(String cep, String rua, String numero, String complemento, String bairro, String cidade,
 			String estado, String pais) {
 		super();
 		this.cep = cep;
-		this.rua = rua;
+		this.logradouro = rua;
 		this.numero = numero;
 		this.complemento = complemento;
 		this.bairro = bairro;
 		this.cidade = cidade;
-		this.estado = estado;
-		this.pais = pais;
+		this.uf = estado;
 	}
 	@Override
 	public String toString() {
-		return "Endereco [cep=" + cep + ", rua=" + rua + ", numero=" + numero + ", complemento=" + complemento
-				+ ", bairro=" + bairro + ", cidade=" + cidade + ", estado=" + estado + ", pais=" + pais + "]";
+		return "Endereco [cep=" + cep + ", rua=" + logradouro + ", numero=" + numero + ", complemento=" + complemento
+				+ ", bairro=" + bairro + ", cidade=" + cidade + ", estado=" + uf + "]";
 	}
-	
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder().append(cep).append(logradouro).append(complemento).append(bairro)
+				.append(cidade).append(uf).toHashCode();
+	}
+	@Override
+	public boolean equals(Object other) {
+		if (other == this) {
+			return true;
+		}
+		if ((other instanceof Endereco) == false) {
+			return false;
+		}
+		Endereco rhs = ((Endereco) other);
+		return new EqualsBuilder().append(cep, rhs.cep).append(logradouro, rhs.logradouro)
+				.append(complemento, rhs.complemento).append(bairro, rhs.bairro).append(cidade, rhs.cidade)
+				.append(uf, rhs.uf).isEquals();
+	}
 	
 }

@@ -29,12 +29,12 @@ public class CargoBean {
 	}
 
 	private void listar() {
-		cargos = cDao.ListarCargo("");
+		cargos = cDao.listarCargo("");
 	}
 	
-	public void Salvar(){
+	public void salvar(){
 
-		cDao.Salvar(cargo);
+		cDao.salvar(cargo);
 		if(cargo.getIdCargo() != 0){
 //			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Cargo alterado com sucesso!", ""));
 		}else{

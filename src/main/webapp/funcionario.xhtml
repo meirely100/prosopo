@@ -1,11 +1,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:p="http://primefaces.org/ui">
+	xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 <h:head>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta charset="UTF-8" />
-	<title>Cargo</title>
+	<title>Funcionario</title>
 	<link href="recursos/css/bootstrap.css" rel="stylesheet"
 		type="text/css" />
 	<link href="recursos/css/ie10-viewport-bug-workaround.css"
@@ -14,7 +15,8 @@
 	<link href="recursos/css/jquery.dataTables.min.css" rel="stylesheet" />
 	<link href="recursos/css/nivo-lightbox.css" rel="stylesheet" />
 	<link href="recursos/css/animate.css" rel="stylesheet" />
-
+	<script src="recursos/js/buscacep.js" type="text/javascript" />
+	<script src="recursos/js/mascara.js" type="text/javascript" />
 </h:head>
 <h:body>
 	<div class="container">
@@ -32,52 +34,311 @@
 				</div>
 			</div>
 		</nav>
-		<h:form id="form-cargo" prependId="false" styleClass="form-horizontal">
-			<div class="jumbotron">
-				<h4 style="text-align: center;">Cadastro Funcionário</h4>
-				<div class="panel-body">
-					
-						<h:outputLabel value="Cargo: " />
-						<h:inputText id="nome" jsf:value="#{mBeanCargo.cargo.cargo}" maxlength="40" />
-						<h:commandButton id="button-salvar" jsf:action="#{mBeanCargo.Salvar()}" value="Salvar" class="btn btn-default dropdown-toggle" />
+		<div class="panel-heading">
+			<h4 style="text-align: center;">Cadastro de Funcionário</h4>
+		</div>
+		<div class="panel-body">
+			<h:form id="form-func" enctype="multipart/form-data"
+				prependId="false" accept-charset="UTF-8">
+				<p:growl id="growl" showDetail="true" rendered="false" />
+				<p:messages id="messages" autoUpdate="true" closable="true" />
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<fieldset>
+							<h:inputHidden value="#{mBeanFuncionario.func.idFuncionario}" />
+							<div class="row">
+								<div class="col-lg-5">
+									<div class="control-group">
+										<h:outputLabel for="nome" styleClass="control-label">Nome *</h:outputLabel>
+										<div class="controls">
+											<h:inputText id="nome" value="#{mBeanFuncionario.func.nome}"
+												maxlength="40" class="form-control" required="required" />
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-7">
+									<div class="control-group">
+										<h:outputLabel for="sobrenome" styleClass="control-label">Sobrenome *</h:outputLabel>
+										<div class="controls">
+											<h:inputText id="sobrenome"
+												value="#{mBeanFuncionario.func.sobrenome}" maxlength="40"
+												class="form-control" required="required" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-4">
+									<div class="control-group">
+										<h:outputLabel for="dtNasc" value="Data de nascimento" />
+										<div class="controls">
+											<p:calendar id="dtNasc"
+												value="#{mBeanFuncionario.func.dataNasc}"
+												pattern="dd/MM/yyyy" mask="true" >
+												<f:convertDateTime type="date" pattern="dd/mm/yyyy" />
+												</p:calendar>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-3">
+									<div class="control-group">
+										<h:outputLabel for="sexo" styleClass="control-label">Sexo *</h:outputLabel>
+										<div class="controls">
+											<h:selectOneMenu id="sexo"
+												value="#{mBeanFuncionario.func.sexo}" class="form-control"
+												required="required">
+												<f:selectItem itemValue="Feminino" itemLabel="Feminino" />
+												<f:selectItem itemValue="Masculino" itemLabel="Masculino" />
+											</h:selectOneMenu>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-2">
+									<div class="control-group">
+										<h:outputLabel for="rg" styleClass="control-label">RG *</h:outputLabel>
+										<div class="controls">
+											<h:inputText id="rg" value="#{mBeanFuncionario.func.rg}"
+												maxlength="10" class="form-control" required="required" />
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-3">
+									<div class="control-group">
+										<h:outputLabel for="cpf" styleClass="control-label">CPF *</h:outputLabel>
+										<div class="controls">
+											<h:inputText id="cpf" value="#{mBeanFuncionario.func.cpf}"
+												maxlength="10" class="form-control" required="required" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="control-group">
+										<h:outputLabel for="email" styleClass="control-label">E-mail </h:outputLabel>
+										<div class="controls">
+											<h:inputText id="email"
+												value="#{mBeanFuncionario.func.eMail}" maxlength="30"
+												class="form-control" />
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-3">
+									<div class="control-group">
+										<h:outputLabel for="celular" styleClass="control-label">Tel. Celular </h:outputLabel>
+										<div class="controls">
+											<h:inputText id="celular" value="#{mBeanFuncionario.func.celular}"
+												class="form-control" />
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-3">
+									<div class="control-group">
+										<h:outputLabel for="residencial"
+											styleClass="control-label">Tel. Residencial </h:outputLabel>
+										<div class="controls">
+											<h:inputText id="residencial" value="#{mBeanFuncionario.func.residencial}"
+												class="form-control" />
+										</div>
+									</div>
+								</div>
+							</div>
+								<div class="row">
+									<div class="col-lg-3">
+										<div class="control-group">
+											<h:outputLabel for="cep" styleClass="control-label">CEP </h:outputLabel>
+											<div class="controls">
+												<h:inputText id="cep" value="#{mBeanFuncionario.func.cep}"
+													a:placeholder="CEP" styleClass="form-control" />
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-8">
+										<div class="control-group">
+											<h:outputLabel for="logradouro"
+												styleClass="control-label">Logradouro </h:outputLabel>
+											<div class="controls">
+												<h:inputText id="logradouro"
+													value="#{mBeanFuncionario.func.logradouro}"
+													a:placeholder="Logradouro" styleClass="form-control" />
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-1">
+										<div class="control-group">
+											<h:outputLabel for="numero" styleClass="control-label">Número </h:outputLabel>
+											<div class="controls">
+												<h:inputText id="numero"
+													value="#{mBeanFuncionario.func.numero}" a:placeholder="Nº"
+													styleClass="form-control" required="required" />
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+								<div class="col-lg-12">
+										<div class="control-group">
+											<h:outputLabel for="complemento" styleClass="control-label">Complemento </h:outputLabel>
+											<div class="controls">
+												<h:inputText id="complemento"
+													value="#{mBeanFuncionario.func.complemento}"
+													styleClass="form-control" required="required" />
+											</div>
+										</div>
+									</div>
+									</div>
+								<div class="row">
+									<div class="col-lg-5">
+										<div class="control-group">
+											<h:outputLabel for="bairro" styleClass="control-label">Bairro </h:outputLabel>
+											<div class="controls">
+												<h:inputText id="bairro"
+													value="#{mBeanFuncionario.func.bairro}"
+													a:placeholder="Bairro" styleClass="form-control" />
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="control-group">
+											<h:outputLabel for="cidade" styleClass="control-label">Cidade </h:outputLabel>
+											<div class="controls">
+												<h:inputText id="cidade"
+													value="#{mBeanFuncionario.func.cidade}"
+													a:placeholder="Cidade" styleClass="form-control" />
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-3">
+										<div class="control-group">
+											<h:outputLabel for="uf" styleClass="control-label">Estado </h:outputLabel>
+											<div class="controls">
+												<h:inputText id="uf" value="#{mBeanFuncionario.func.uf}"
+													a:placeholder="UF" styleClass="form-control" />
+											</div>
+										</div>
+									</div>
+								</div>
+							<div class="row">
+								<div class="col-lg-3">
+									<div class="control-group">
+										<h:outputLabel for="cTrabalho" styleClass="control-label">Nº Cart. de trabalho </h:outputLabel>
+										<div class="controls">
+											<h:inputText id="cTrabalho"
+												value="#{mBeanFuncionario.func.numCartTrab}" maxlength="15"
+												class="form-control" />
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-3">
+									<div class="control-group">
+										<h:outputLabel for="numSerie" styleClass="control-label">Nº de Série </h:outputLabel>
+										<div class="controls">
+											<h:inputText id="numSerie"
+												value="#{mBeanFuncionario.func.serieCartTrab}"
+												maxlength="15" class="form-control" />
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-3">
+									<div class="control-group">
+										<h:outputLabel for="dtAdm" value="Data da admissão" />
+										<div class="controls">
+											<p:calendar id="dtAdm"
+												value="#{mBeanFuncionario.func.admissao}"
+												pattern="dd/MM/yyyy" mask="true" >
+												<f:convertDateTime type="date" pattern="dd/mm/yyyy" />
+												</p:calendar>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-3">
+									<div class="control-group">
+										<h:outputLabel for="dtDem" value="Data da Demissão" />
+										<div class="controls">
+											<p:calendar id="dtDem"
+												value="#{mBeanFuncionario.func.dataDemissao}"
+												pattern="dd/MM/yyyy" mask="true" >
+												<f:convertDateTime type="date" pattern="dd/mm/yyyy" />
+												</p:calendar>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+							<div class="col-lg-3">
+									<div class="control-group">
+										<h:outputLabel for="cargo" styleClass="control-label">Cargo *</h:outputLabel>
+										<div class="controls">
+											<h:selectOneMenu id="cargo"
+												value="#{mBeanFuncionario.idCargo}" 
+												layout="pageDirecti" styleClass="form-control" converterMessage="Cargo deve ser selecionado!" >
+												<f:selectItem itemValue="Selecione o cargo"/>
+												<f:selectItems value="#{mBeanFuncionario.listCargo}" var="cg"
+												itemLabel="#{cg.cargo}" itemValue="#{cg.idCargo}" required="required"/>
+											</h:selectOneMenu>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row" style="margin-top: 2%">
+							
+							<h:commandButton id="button-salvar"
+							action="#{mBeanFuncionario.salvar()}" value="Salvar"
+							class="btn btn-default dropdown-toggle" />
+							</div>
+							
+
+							<p:dialog modal="true" resizable="false" header="Values"
+								widgetVar="dlg" showEffect="fold">
+								<div class="col-lg-2">
+									<div class="control-group">
+										<h:outputText value="Data de nascimento " />
+										<div class="controls">
+											<h:outputText id="dateNasc"
+												value="#{mBeanFuncionario.func.dataNasc}"
+												class="form-control" required="required">
+												<f:convertDateTime pattern="MM/dd/yyyy" />
+											</h:outputText>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-2">
+									<div class="control-group">
+										<h:outputText value="Data da admissão " />
+										<div class="controls">
+											<h:outputText id="dateAdm"
+												value="#{mBeanFuncionario.func.admissao}"
+												class="form-control" required="required">
+												<f:convertDateTime pattern="MM/dd/yyyy" />
+											</h:outputText>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-2">
+									<div class="control-group">
+										<h:outputText value="Data da demissão " />
+										<div class="controls">
+											<h:outputText id="dateDem"
+												value="#{mBeanFuncionario.func.dataDemissao}"
+												class="form-control" required="required">
+												<f:convertDateTime pattern="MM/dd/yyyy" />
+											</h:outputText>
+										</div>
+									</div>
+								</div>
+								
+							</p:dialog>
+						</fieldset>
+					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-12">
-					<h:dataTable id="table" value="#{mBeanCargo.cargos}" var="cg"
-						styleClass="table table-striped table-bordered table-hover">
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="Cargo" />
-							</f:facet>
-							<h:outputText value="#{cg.cargo}" />
-						</h:column>
-	
-						<h:column style="text-align: center">
-							<f:facet name="header">Editar</f:facet>
-							<h:commandButton value="Editar" name="botao" id="button-edit"
-								action="#{mBeanCargo.editar(cg)}"
-								class="btn btn-default dropdown-toggle" />
-						</h:column>
-	
-						<h:column style="text-align: center">
-							<f:facet name="header">Excluir</f:facet>
-							<h:commandButton value="Excluir" name="botaoExcluir"
-								id="button-excluir" action="#{mBeanCargo.excluir(cg)}"
-								class="btn btn-default dropdown-toggle" />
-						</h:column>
-					</h:dataTable>
-	
-				</div>
-				
-			</div>
-		</h:form>
+			</h:form>
+		</div>
 	</div>
-	
 </h:body>
 
 <!-- tabela -->
-<script src="js/jquery.dataTables.min.js" />
-<script src="js/dataTablePortugues.js"></script>
-<script src="./js/designTable.js" />
+<script src="recursos/js/jquery.dataTables.min.js" />
+<script src="recursos/js/dataTablePortugues.js"></script>
+<script src="recursos/js/designTable.js" />
+
 </html>
