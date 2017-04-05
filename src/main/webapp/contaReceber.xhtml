@@ -1,0 +1,127 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf" 
+	xmlns:p="http://primefaces.org/ui">
+	
+<h:head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta charset="UTF-8" />
+	<title>Contas a Receber</title>
+	<link href="recursos/css/bootstrap.css" rel="stylesheet" type="text/css" />
+	<link href="recursos/css/ie10-viewport-bug-workaround.css" rel="stylesheet" type="text/css" />
+	<link href="recursos/css/navbar.css" rel="stylesheet" type="text/css" />
+	<link href="recursos/css/jquery.dataTables.min.css" rel="stylesheet" />
+	<link href="recursos/css/nivo-lightbox.css" rel="stylesheet" />
+	<link href="recursos/css/animate.css" rel="stylesheet" />
+
+</h:head>
+<h:body>
+	
+	<div class="container">
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+						aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a href="" class="navbar-brand">Prosopo</a>
+				</div>
+			</div>
+		</nav>
+		<h:form id="form-Conta-Pagar" prependId="false"
+			styleClass="form-horizontal" style="text-align: center" >
+			<div class="jumbotron">
+				<h1 style="text-align: center">Contas a Receber</h1>
+				<div class="panel-body">
+					<p:commandButton value="Nova" oncomplete="PF('dialogo').show();" />
+				</div>
+			</div>
+			
+			<h:panelGrid columns="4" width="100%">
+				<p:outputLabel value="Titulo da Divida" />
+				<p:inputText maxlength="45" size="30" />
+
+				<p:outputLabel value="Valor" />
+				<p:inputNumber maxlength="45" size="30" />
+				
+				<p:outputLabel value="Descrição" />
+				<p:inputTextarea maxlength="100" size="100" />
+				
+				<p:outputLabel value="Forma de Pagamento" />
+				<p:inputText maxlength="45" size="30" />
+				
+				<p:outputLabel value="status" />
+				<p:inputText maxlength="45" size="30" />
+				
+				
+				<p:outputLabel for="button" value="Data Vencimento:" />
+                <p:calendar id="button" value="#{calendarView.date3}" showOn="button" />
+                
+                <p:outputLabel for="popup" value="Data de Pagamento:" />
+                <p:calendar id="popup" value="#{calendarView.date2}" />
+                
+			</h:panelGrid>
+			<h:panelGrid columns="2" style="text-align: center" >
+				<h:commandButton id="button-salvar" style="text-align: center"
+					jsf:action="#{mBeanContaReceber.Salvar()}" value="Salvar"
+					class="btn btn-default dropdown-toggle"  />
+				<p:commandButton  style="text-align: center" value="Cancelar" oncomplete="PF('dialogo').hide();" />
+
+			</h:panelGrid>
+
+			</h:form>
+			
+			<h:form>
+			<p:dataTable value="#{mBeanContaReceber.contasR}"   var="cr" >
+					<p:column headerText="Titulo">
+						<h:outputText value="#{cr.titulo}"/>
+					</p:column>
+
+					<p:column headerText="Cliente">
+						<h:outputText value="#{cr.cliente}" />
+					</p:column>
+					
+					<p:column headerText="Data de Vencimento">
+						<h:outputText value="#{cr.dataVencimento}" />
+					</p:column>
+
+					<p:column headerText="Descrição">
+						<h:outputText value="#{cr.descricao}" />
+					</p:column>
+					
+					<p:column headerText="Forma de Pagamanto">
+						<h:outputText value="#{cr.formaPagamento}" />
+					</p:column>
+
+					<p:column headerText="Status">
+						<h:outputText value="#{cr.status}" />
+					</p:column>
+					
+					<p:column >
+					
+					<f:facet name="header" >Opções</f:facet>
+							<h:commandButton style="background-color:tomato; size=10% " value="Excluir"
+								name="botaoExcluir" id="button-excluir"
+								action="#{mBeanContaReceber.excluir(cr)}"
+								class="btn btn-default dropdown-toggle" />
+							<h:commandButton style="size=10% " value="Editar"
+								name="botao" id="button-edit" action="#{mBeanContaReceber.editar(cr)}"
+								class="btn btn-default dropdown-toggle" />
+					</p:column>
+				</p:dataTable>
+
+			</h:form>
+	</div>
+	
+</h:body>
+
+<!-- tabela -->
+<script src="js/jquery.dataTables.min.js" />
+<script src="js/dataTablePortugues.js"></script>
+<script src="./js/designTable.js" />
+</html>

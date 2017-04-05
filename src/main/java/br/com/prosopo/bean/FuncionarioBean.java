@@ -23,7 +23,7 @@ import br.com.prosopo.entity.Funcionario;
 @SessionScoped
 public class FuncionarioBean {
 	private Funcionario func = new Funcionario();
-	private FuncionarioDao FuncDao = new FuncionarioDao();
+	private FuncionarioDao funcDao = new FuncionarioDao();
 	private CargoDao cDao = new CargoDao();
 	private String cep;
 	private List<Funcionario> listFunc;
@@ -43,6 +43,8 @@ public class FuncionarioBean {
 	public void init() {
 		listar();
 		listFunc = new ArrayList<Funcionario>();
+		listFunc = funcDao.listarFuncionarios("");
+		
 	}
 
 	public void salvar() {
@@ -53,7 +55,7 @@ public class FuncionarioBean {
 			Cargo cargo = new CargoDao().buscaPorId(idCargo);
 			System.out.println("Cargo encontrado "+ cargo);
 			func.setCargoFuncionario(cargo);
-			FuncDao.salvar(func);
+			funcDao.salvar(func);
 			System.out.println("Deu boa " + func.toString());
 		}
 		catch(Exception ef){
@@ -73,18 +75,18 @@ public class FuncionarioBean {
 	}
 
 	// tratamento data
-	public void onDateSelect(SelectEvent event) {
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-		facesContext.addMessage(null,
-				new FacesMessage(FacesMessage.SEVERITY_INFO, "Date Selected", format.format(event.getObject())));
-	}
+//	public void onDateSelect(SelectEvent event) {
+//		FacesContext facesContext = FacesContext.getCurrentInstance();
+//		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+//		facesContext.addMessage(null,
+//				new FacesMessage(FacesMessage.SEVERITY_INFO, "Date Selected", format.format(event.getObject())));
+//	}
 
-	public void click() {
-		RequestContext requestContext = RequestContext.getCurrentInstance();
-		requestContext.update("form:display");
-		requestContext.execute("PF('dlg').show()");
-	}
+//	public void click() {
+//		RequestContext requestContext = RequestContext.getCurrentInstance();
+//		requestContext.update("form:display");
+//		requestContext.execute("PF('dlg').show()");
+//	}
 	
 	private void listar() {
 		listCargo = new ArrayList<Cargo>();
@@ -101,11 +103,11 @@ public class FuncionarioBean {
 	}
 
 	public FuncionarioDao getFuncDao() {
-		return FuncDao;
+		return funcDao;
 	}
 
-	public void setFuncDao(FuncionarioDao funcDao) {
-		FuncDao = funcDao;
+	public void setFuncDao(FuncionarioDao funciDao) {
+		funcDao = funciDao;
 	}
 
 	public String getCep() {

@@ -31,7 +31,7 @@ public class FuncionarioDao {
 	@SuppressWarnings("unchecked")
 	public List<Funcionario> listarFuncionarios(String nome) {
 		EntityManager em = Conexao.getEntityManager();
-		Query query = (Query) em.createQuery("Select f from Funcionario f where f.nome like ? order by a.nome");
+		Query query = (Query) em.createQuery("Select f from Funcionario f where f.nome like ? order by f.nome");
 		query.setParameter(1, "%" + nome + "%");
 		return query.getResultList();
 	}
