@@ -1,18 +1,15 @@
 package br.com.prosopo.bean;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 
-import org.primefaces.context.RequestContext;
-import org.primefaces.event.SelectEvent;
+import org.primefaces.model.UploadedFileWrapper;
 
 import br.com.prosopo.dao.CargoDao;
 import br.com.prosopo.dao.FuncionarioDao;
@@ -32,37 +29,56 @@ public class FuncionarioBean {
 	private Long idCargo;
 	private Long idUser;
 
-//	 private ApplicationPart foto;
-	private String valorImagem;
-	private String descricao;
-	private String caminhoDaFoto;
-	private File file;
-	
-	
+	private UploadedFileWrapper arquivo;
+	// private String caminhoDaFoto;
+	// private ApplicationPath foto;
+	// private String descricao;
+	// private String valorImagem;
+	// private File file;
+
 	@PostConstruct
 	public void init() {
 		listar();
 		listFunc = new ArrayList<Funcionario>();
 		listFunc = funcDao.listarFuncionarios("");
-		
+
 	}
 
+	/*
+	 * public void uploadAction (FileUploadEvent event){
+	 * this.arquivo.fileUpload(event, ".jpeg",
+	 * "C:\\development\\imagens\\funcionarios");
+	 * this.func.setCaminhoFoto(this.arquivo.getTitulo()); }
+	 */
+
 	public void salvar() {
-		try{
-//			if(func.getIdFuncionario() == 0){
-//				func.setIdFuncionario(null);
-//			}
+		try {
+			// if(func.getIdFuncionario() == 0){
+			// func.setIdFuncionario(null);
+			// }
 			Cargo cargo = new CargoDao().buscaPorId(idCargo);
-			System.out.println("Cargo encontrado "+ cargo);
-			func.setCargoFuncionario(cargo);
+			System.out.println("Cargo encontrado " + cargo);
+			func.setCargoFuncionario(cargo);			
 			funcDao.salvar(func);
-			System.out.println("Deu boa " + func.toString());
-		}
-		catch(Exception ef){
-			System.out.println("erro: "+ ef.getMessage());
+
+			String caminhoDaFoto = "c:\\temp\\" + func.getIdFuncionario() + ".jpeg";
+			InputStream is = arquivo.getInputstream();
+			FileOutputStream fs = new FileOutputStream(caminhoDaFoto);
+			int read = 0;
+			final byte[] bytes = new byte[1024];
+			while ((read = is.read(bytes)) != -1) {
+				fs.write(bytes, 0, read);
+			}
+			fs.close();
+			func.setCaminhoFoto(caminhoDaFoto);
 			
+			funcDao.salvar(func);
+			
+			System.out.println("Deu boa " + func.toString());
+		} catch (Exception ef) {
+			System.out.println("erro: " + ef.getMessage());
+
 		}
-		
 
 	}
 
@@ -75,19 +91,20 @@ public class FuncionarioBean {
 	}
 
 	// tratamento data
-//	public void onDateSelect(SelectEvent event) {
-//		FacesContext facesContext = FacesContext.getCurrentInstance();
-//		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-//		facesContext.addMessage(null,
-//				new FacesMessage(FacesMessage.SEVERITY_INFO, "Date Selected", format.format(event.getObject())));
-//	}
+	// public void onDateSelect(SelectEvent event) {
+	// FacesContext facesContext = FacesContext.getCurrentInstance();
+	// SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+	// facesContext.addMessage(null,
+	// new FacesMessage(FacesMessage.SEVERITY_INFO, "Date Selected",
+	// format.format(event.getObject())));
+	// }
 
-//	public void click() {
-//		RequestContext requestContext = RequestContext.getCurrentInstance();
-//		requestContext.update("form:display");
-//		requestContext.execute("PF('dlg').show()");
-//	}
-	
+	// public void click() {
+	// RequestContext requestContext = RequestContext.getCurrentInstance();
+	// requestContext.update("form:display");
+	// requestContext.execute("PF('dlg').show()");
+	// }
+
 	private void listar() {
 		listCargo = new ArrayList<Cargo>();
 		listCargo = cDao.listarCargo("");
@@ -150,35 +167,12 @@ public class FuncionarioBean {
 		this.idUser = idUser;
 	}
 
-	public String getValorImagem() {
-		return valorImagem;
+	public UploadedFileWrapper  getArquivo() {
+		return arquivo;
 	}
 
-	public void setValorImagem(String valorImagem) {
-		this.valorImagem = valorImagem;
+	public void setArquivo(UploadedFileWrapper  arquivo) {
+		this.arquivo = arquivo;
 	}
 
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
-	public String getCaminhoDaFoto() {
-		return caminhoDaFoto;
-	}
-
-	public void setCaminhoDaFoto(String caminhoDaFoto) {
-		this.caminhoDaFoto = caminhoDaFoto;
-	}
-
-	public File getFile() {
-		return file;
-	}
-
-	public void setFile(File file) {
-		this.file = file;
-	}
 }

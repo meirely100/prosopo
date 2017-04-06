@@ -8,7 +8,25 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>Faces Servlet</servlet-name>
-<!--     <url-pattern>*.xhtml</url-pattern> -->
-     <url-pattern>*.jsf</url-pattern>
+    <url-pattern>*.jsf</url-pattern>
+  </servlet-mapping>
+  <filter>
+    <filter-name>PrimeFaces FileUpload Filter</filter-name>
+    <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>PrimeFaces FileUpload Filter</filter-name>
+    <servlet-name>Faces Servlet</servlet-name>
+    <url-pattern>*.jsf</url-pattern>
+  </filter-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ServletImagemFunc</display-name>
+    <servlet-name>ServletImagemFunc</servlet-name>
+    <servlet-class>br.com.prosopo.bean.ServletImagemFunc</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletImagemFunc</servlet-name>
+    <url-pattern>/ServletImagemFunc</url-pattern>
   </servlet-mapping>
 </web-app>

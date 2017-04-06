@@ -114,6 +114,18 @@
 									</div>
 								</div>
 							</div>
+							<div class="col-lg-3">
+								<div class="control-group">
+									<h:outputLabel for="upload" styleClass="control-label">Foto *</h:outputLabel>
+									<div class="controls">
+										<p:fileUpload id="upload"
+											value="#{mBeanFuncionario.arquivo}" 
+											auto="true" mode="simple" />
+											
+											<img src="ServletImagemFunc?idFuncionario=#{mBeanFuncionario.func.idFuncionario}" width="100%" height="20%"/>
+									</div>
+								</div>
+							</div>
 							<div class="row">
 								<div class="col-lg-6">
 									<div class="control-group">

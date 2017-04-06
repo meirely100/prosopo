@@ -30,13 +30,14 @@ public class FuncionarioDao {
 
 	@SuppressWarnings("unchecked")
 	public List<Funcionario> listarFuncionarios(String nome) {
-		EntityManager em = Conexao.getEntityManager();
+		em = Conexao.getEntityManager();
 		Query query = (Query) em.createQuery("Select f from Funcionario f where f.nome like ? order by f.nome");
 		query.setParameter(1, "%" + nome + "%");
 		return query.getResultList();
 	}
 
 	public Funcionario buscaPorId(Long id) {
+		em = Conexao.getEntityManager();
 		return em.find(Funcionario.class, id);
 	}
 }
