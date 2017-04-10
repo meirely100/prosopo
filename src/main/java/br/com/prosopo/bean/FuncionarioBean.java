@@ -30,28 +30,23 @@ public class FuncionarioBean {
 	private Long idUser;
 
 	private UploadedFileWrapper arquivo;
-	// private String caminhoDaFoto;
-	// private ApplicationPath foto;
-	// private String descricao;
-	// private String valorImagem;
-	// private File file;
 
 	@PostConstruct
 	public void init() {
 		listar();
 		listFunc = new ArrayList<Funcionario>();
 		listFunc = funcDao.listarFuncionarios("");
+		listCargo= new ArrayList<Cargo>();
+		listCargo = cDao.listarCargo("");
 
 	}
 
-	/*
-	 * public void uploadAction (FileUploadEvent event){
-	 * this.arquivo.fileUpload(event, ".jpeg",
-	 * "C:\\development\\imagens\\funcionarios");
-	 * this.func.setCaminhoFoto(this.arquivo.getTitulo()); }
-	 */
+	
+//	 * "C:\\development\\imagens\\funcionarios");
+//	 * this.func.setCaminhoFoto(this.arquivo.getTitulo()); }
+//	 */
 
-	public void salvar() {
+	public String salvar() {
 		try {
 			// if(func.getIdFuncionario() == 0){
 			// func.setIdFuncionario(null);
@@ -71,23 +66,29 @@ public class FuncionarioBean {
 			}
 			fs.close();
 			func.setCaminhoFoto(caminhoDaFoto);
-			
 			funcDao.salvar(func);
-			
-			System.out.println("Deu boa " + func.toString());
+			recarregarLista();
+			return "listFuncionario.jsf";
 		} catch (Exception ef) {
 			System.out.println("erro: " + ef.getMessage());
+			return "funcionario.jsf";
 
 		}
 
 	}
 
-	public String editar(Funcionario f) {
-		func = new Funcionario();
-		listCargo = new ArrayList<Cargo>();
-		func = f;
-		idCargo = func.getCargoFuncionario().getIdCargo();
-		return "funcionario.jsf";
+	public String editar(Funcionario funcEditar) {
+		try{
+			func = new Funcionario();
+			//listCargo = new ArrayList<Cargo>();
+			func = funcEditar;
+			idCargo = func.getCargoFuncionario().getIdCargo();
+			return "funcionario.jsf";
+		}
+		catch(Exception erro){
+			return "listFuncionario.jsf";
+		}
+		
 	}
 
 	// tratamento data
@@ -106,9 +107,29 @@ public class FuncionarioBean {
 	// }
 
 	private void listar() {
-		listCargo = new ArrayList<Cargo>();
-		listCargo = cDao.listarCargo("");
+		try{
+			listCargo = new ArrayList<Cargo>();
+			listCargo = cDao.listarCargo("");
+			listFunc = new ArrayList<Funcionario>();
+			listFunc = funcDao.listarFuncionarios("");
+		}
+		catch(Exception erroLista){
+			
+		}
+		
 	}
+	
+	public void limpar(){
+		//limparDados();
+		func = new Funcionario();
+		idCargo = null;
+		init();	
+	}
+	
+	public void recarregarLista(){
+		listFunc = new FuncionarioDao().listarFuncionarios("");
+		listCargo = new CargoDao().listarCargo("");
+		}
 
 	// getts and setts
 	public Funcionario getFunc() {

@@ -4,7 +4,10 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+
 import br.com.prosopo.entity.Cargo;
+import br.com.prosopo.entity.Funcionario;
 
 
 public class CargoDao {
@@ -28,11 +31,16 @@ public class CargoDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Cargo> listarCargo(String nome) {
+	public List<Cargo> listarCargo(String busca) {
 		EntityManager em = Conexao.getEntityManager();
-		Query query = (Query) em.createQuery("select c from Cargo c where c.cargo like ? order by c.cargo");
-		query.setParameter(1, "%" + nome + "%");
-		return query.getResultList();
+		String consulta = "select c from Cargo c where c.cargo like :busca order by c.cargo";
+		TypedQuery<Cargo> query = em.createQuery(consulta, Cargo.class);
+		query.setParameter("busca", "%" + busca + "%");
+		List<Cargo> resultado = query.getResultList();
+		return resultado;
+//		Query query = (Query) em.createQuery("select c from Cargo c where c.cargo like ? order by c.cargo");
+//		query.setParameter(1, "%" + busca + "%");
+//		return query.getResultList();
 	}
 
 	public void excluir(Cargo excluirCargo) {

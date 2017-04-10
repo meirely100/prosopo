@@ -77,7 +77,7 @@
 											<p:calendar id="dtNasc" locale="pt" showButtonPanel="true" navigator="true"
 												value="#{mBeanFuncionario.func.dataNasc}"
 												pattern="dd/MM/yyyy" mask="true" >
-												<f:convertDateTime type="date" pattern="dd/mm/yyyy" timeZone="America/Sao_Paulo" />
+												<f:convertDateTime type="date" pattern="dd/mm/yyyy" timeZone="GMT-3" />
 												</p:calendar>
 										</div>
 									</div>
@@ -114,7 +114,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-3">
+							<div class="col-lg-4">
 								<div class="control-group">
 									<h:outputLabel for="upload" styleClass="control-label">Foto *</h:outputLabel>
 									<div class="controls">
@@ -122,7 +122,7 @@
 											value="#{mBeanFuncionario.arquivo}" 
 											auto="true" mode="simple" />
 											
-											<img src="ServletImagemFunc?idFuncionario=#{mBeanFuncionario.func.idFuncionario}" width="100%" height="20%"/>
+											<img src="ServletImagemFunc?idFuncionario=#{mBeanFuncionario.func.idFuncionario}" width="30%" height="25%"/>
 									</div>
 								</div>
 							</div>
@@ -260,7 +260,7 @@
 											<p:calendar id="dtAdm" locale="pt" showButtonPanel="true" navigator="true"
 												value="#{mBeanFuncionario.func.admissao}"
 												pattern="dd/MM/yyyy" mask="true" >
-												<f:convertDateTime type="date" pattern="dd/mm/yyyy" timeZone="America/Sao_Paulo" />
+												<f:convertDateTime type="date" pattern="dd/mm/yyyy" timeZone="GMT-3" />
 												</p:calendar>
 										</div>
 									</div>
@@ -272,7 +272,7 @@
 											<p:calendar id="dtDem" locale="pt" showButtonPanel="true" navigator="true"
 												value="#{mBeanFuncionario.func.dataDemissao}"
 												pattern="dd/MM/yyyy" mask="true" >
-												<f:convertDateTime type="date" pattern="dd/mm/yyyy" timeZone="America/Sao_Paulo" />
+												<f:convertDateTime type="date" pattern="dd/mm/yyyy" timeZone="GMT-3" />
 												</p:calendar>
 										</div>
 									</div>
@@ -283,8 +283,8 @@
 									<div class="control-group">
 										<h:outputLabel for="cargo" styleClass="control-label">Cargo *</h:outputLabel>
 										<div class="controls">
-											<h:selectOneMenu id="cargo"
-												value="#{mBeanFuncionario.idCargo}" 
+											<h:selectOneMenu id="cg"
+												value="#{mBeanFuncionario.idCargo}"
 												layout="pageDirecti" styleClass="form-control" converterMessage="Cargo deve ser selecionado!" >
 												<f:selectItem itemValue="Selecione o cargo"/>
 												<f:selectItems value="#{mBeanFuncionario.listCargo}" var="cg"
@@ -311,7 +311,7 @@
 											<h:outputText id="dateNasc"
 												value="#{mBeanFuncionario.func.dataNasc}"
 												class="form-control" required="required">
-												<f:convertDateTime pattern="MM/dd/yyyy" />
+												<f:convertDateTime pattern="MM/dd/yyyy" timeZone="GMT-3" />
 											</h:outputText>
 										</div>
 									</div>
@@ -323,7 +323,7 @@
 											<h:outputText id="dateAdm"
 												value="#{mBeanFuncionario.func.admissao}"
 												class="form-control" required="required">
-												<f:convertDateTime pattern="MM/dd/yyyy" />
+												<f:convertDateTime pattern="MM/dd/yyyy" timeZone="GMT-3" />
 											</h:outputText>
 										</div>
 									</div>
@@ -335,7 +335,7 @@
 											<h:outputText id="dateDem"
 												value="#{mBeanFuncionario.func.dataDemissao}"
 												class="form-control" required="required">
-												<f:convertDateTime pattern="MM/dd/yyyy" />
+												<f:convertDateTime pattern="MM/dd/yyyy" timeZone="GMT-3" />
 											</h:outputText>
 										</div>
 									</div>

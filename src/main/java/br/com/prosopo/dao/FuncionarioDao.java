@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import br.com.prosopo.entity.Cargo;
 import br.com.prosopo.entity.Funcionario;
@@ -29,15 +30,22 @@ public class FuncionarioDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Funcionario> listarFuncionarios(String nome) {
+	public List<Funcionario> listarFuncionarios(String busca) {
 		em = Conexao.getEntityManager();
-		Query query = (Query) em.createQuery("Select f from Funcionario f where f.nome like ? order by f.nome");
-		query.setParameter(1, "%" + nome + "%");
-		return query.getResultList();
+		String consulta = "select f from Funcionario f where f.nome like :busca order by f.nome";
+		//Query query = (Query) em.createQuery("select * from Funcionario f where f.nome like :busca");
+		TypedQuery<Funcionario> query = em.createQuery(consulta, Funcionario.class);
+		query.setParameter("busca", "%" + busca + "%");
+		List<Funcionario> resultado = query.getResultList();
+		return resultado;
+		//return query.getResultList();
 	}
 
 	public Funcionario buscaPorId(Long id) {
 		em = Conexao.getEntityManager();
-		return em.find(Funcionario.class, id);
+		Funcionario func = em.find(Funcionario.class, id);
+		em.close();
+		return func;
+		//return em.find(Funcionario.class, id);
 	}
 }
