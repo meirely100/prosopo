@@ -29,11 +29,18 @@
     <servlet-name>ServletImagemFunc</servlet-name>
     <url-pattern>/ServletImagemFunc</url-pattern>
   </servlet-mapping>
-<!--   tratamento data calendar -->
   <context-param>
-    <param-name>
-            javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE
-    </param-name>
+    <param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
     <param-value>true</param-value>
-</context-param>
+  </context-param>
+  <servlet>
+    <description></description>
+    <display-name>ServletImagemPsico</display-name>
+    <servlet-name>ServletImagemPsico</servlet-name>
+    <servlet-class>br.com.prosopo.bean.ServletImagemPsico</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletImagemPsico</servlet-name>
+    <url-pattern>/ServletImagemPsico</url-pattern>
+  </servlet-mapping>
 </web-app>

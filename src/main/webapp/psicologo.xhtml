@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta charset="utf-8" />
-	<title>Funcionario</title>
+	<title>Psicólogo</title>
 	<link href="recursos/css/bootstrap.css" rel="stylesheet"
 		type="text/css" />
 	<link href="recursos/css/ie10-viewport-bug-workaround.css"
@@ -36,35 +36,23 @@
 			</div>
 		</nav>
 		<div class="panel-heading">
-			<h4 style="text-align: center;">Cadastro de Funcionário</h4>
+			<h4 style="text-align: center;">Cadastro de Psicólogo</h4>
 		</div>
 		<div class="panel-body">
-			<h:form id="form-func" enctype="multipart/form-data"
+			<h:form id="form-psico" enctype="multipart/form-data"
 				prependId="false" accept-charset="UTF-8">
 				<p:growl id="growl" showDetail="true" rendered="false" />
 				<p:messages id="messages" autoUpdate="true" closable="true" />
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<fieldset>
-							<h:inputHidden value="#{mBeanFuncionario.func.idFuncionario}" />
-							<div class="row">
-								<div class="col-lg-2">
-									<div class="control-group">
-										<h:outputLabel for="matricula" styleClass="control-label">Matrícula *</h:outputLabel>
-										<div class="controls">
-											<h:inputText id="matricula"
-												value="#{mBeanFuncionario.func.matricula}" maxlength="15"
-												class="form-control" required="required" />
-										</div>
-									</div>
-								</div>
-							</div>
+							<h:inputHidden value="#{mBeanPsicologo.psico.idPsicologo}" />
 							<div class="row">
 								<div class="col-lg-3">
 									<div class="control-group">
 										<h:outputLabel for="nome" styleClass="control-label">Nome *</h:outputLabel>
 										<div class="controls">
-											<h:inputText id="nome" value="#{mBeanFuncionario.func.nome}"
+											<h:inputText id="nome" value="#{mBeanPsicologo.psico.nome}"
 												maxlength="30" class="form-control" required="required" />
 										</div>
 									</div>
@@ -74,7 +62,7 @@
 										<h:outputLabel for="sobrenome" styleClass="control-label">Sobrenome *</h:outputLabel>
 										<div class="controls">
 											<h:inputText id="sobrenome"
-												value="#{mBeanFuncionario.func.sobrenome}" maxlength="40"
+												value="#{mBeanPsicologo.psico.sobrenome}" maxlength="40"
 												class="form-control" required="required" />
 										</div>
 									</div>
@@ -85,10 +73,10 @@
 											<h:outputLabel for="upload" styleClass="control-label">Foto </h:outputLabel>
 											<div class="controls">
 												<p:fileUpload id="upload"
-													value="#{mBeanFuncionario.arquivo}" auto="true"
+													value="#{mBeanPsicologo.arquivo}" auto="true"
 													mode="simple" />
 												<img
-													src="ServletImagemFunc?idFuncionario=#{mBeanFuncionario.func.idFuncionario}"
+													src="ServletImagemPsico?idPsicologo=#{mBeanPsicologo.psico.idPsicologo}"
 													width="40%" height="30%" />
 											</div>
 										</div>
@@ -101,8 +89,9 @@
 										<h:outputLabel for="dtNasc" value="Data de nascimento" />
 										<div class="controls">
 											<p:calendar id="dtNasc" locale="pt" showButtonPanel="true"
-												navigator="true" value="#{mBeanFuncionario.func.dataNasc}"
+												navigator="true" value="#{mBeanPsicologo.psico.dataNasc}"
 												pattern="dd/MM/yyyy" mask="true">
+												
 											</p:calendar>
 										</div>
 									</div>
@@ -112,9 +101,9 @@
 										<h:outputLabel for="sexo" styleClass="control-label">Sexo *</h:outputLabel>
 										<div class="controls">
 											<h:selectOneMenu id="sexo"
-												value="#{mBeanFuncionario.func.sexo}" class="form-control"
+												value="#{mBeanPsicologo.psico.sexo}" class="form-control"
 												required="required">
-												<f:selectItem itemValue="" />
+												<f:selectItem itemValue=""/>
 												<f:selectItem itemValue="Feminino" itemLabel="Feminino" />
 												<f:selectItem itemValue="Masculino" itemLabel="Masculino" />
 											</h:selectOneMenu>
@@ -125,17 +114,17 @@
 									<div class="control-group">
 										<h:outputLabel for="rg" styleClass="control-label">RG *</h:outputLabel>
 										<div class="controls">
-											<h:inputText id="rg" value="#{mBeanFuncionario.func.rg}"
+											<h:inputText id="rg" value="#{mBeanPsicologo.psico.rg}"
 												maxlength="10" class="form-control" required="required" />
 										</div>
 									</div>
 								</div>
-
+							
 								<div class="col-lg-3">
 									<div class="control-group">
 										<h:outputLabel for="cpf" styleClass="control-label">CPF *</h:outputLabel>
 										<div class="controls">
-											<h:inputText id="cpf" value="#{mBeanFuncionario.func.cpf}"
+											<h:inputText id="cpf" value="#{mBeanPsicologo.psico.cpf}"
 												maxlength="10" class="form-control" required="required" />
 										</div>
 									</div>
@@ -147,7 +136,7 @@
 										<h:outputLabel for="email" styleClass="control-label">E-mail </h:outputLabel>
 										<div class="controls">
 											<h:inputText id="email"
-												value="#{mBeanFuncionario.func.eMail}" maxlength="30"
+												value="#{mBeanPsicologo.psico.eMail}" maxlength="30"
 												class="form-control" />
 										</div>
 									</div>
@@ -157,7 +146,7 @@
 										<h:outputLabel for="celular" styleClass="control-label">Tel. Celular </h:outputLabel>
 										<div class="controls">
 											<h:inputText id="celular"
-												value="#{mBeanFuncionario.func.celular}"
+												value="#{mBeanPsicologo.psico.celular}"
 												class="form-control" />
 										</div>
 									</div>
@@ -167,7 +156,7 @@
 										<h:outputLabel for="residencial" styleClass="control-label">Tel. Residencial </h:outputLabel>
 										<div class="controls">
 											<h:inputText id="residencial"
-												value="#{mBeanFuncionario.func.residencial}"
+												value="#{mBeanPsicologo.psico.residencial}"
 												class="form-control" />
 										</div>
 									</div>
@@ -178,7 +167,7 @@
 									<div class="control-group">
 										<h:outputLabel for="cep" styleClass="control-label">CEP </h:outputLabel>
 										<div class="controls">
-											<h:inputText id="cep" value="#{mBeanFuncionario.func.cep}"
+											<h:inputText id="cep" value="#{mBeanPsicologo.psico.cep}"
 												styleClass="form-control" />
 										</div>
 									</div>
@@ -188,7 +177,7 @@
 										<h:outputLabel for="logradouro" styleClass="control-label">Logradouro </h:outputLabel>
 										<div class="controls">
 											<h:inputText id="logradouro"
-												value="#{mBeanFuncionario.func.logradouro}"
+												value="#{mBeanPsicologo.psico.logradouro}"
 												styleClass="form-control" />
 										</div>
 									</div>
@@ -198,7 +187,7 @@
 										<h:outputLabel for="numero" styleClass="control-label">Número </h:outputLabel>
 										<div class="controls">
 											<h:inputText id="numero"
-												value="#{mBeanFuncionario.func.numero}"
+												value="#{mBeanPsicologo.psico.numero}"
 												styleClass="form-control" required="required" />
 										</div>
 									</div>
@@ -210,7 +199,7 @@
 										<h:outputLabel for="complemento" styleClass="control-label">Complemento </h:outputLabel>
 										<div class="controls">
 											<h:inputText id="complemento"
-												value="#{mBeanFuncionario.func.complemento}"
+												value="#{mBeanPsicologo.psico.complemento}"
 												styleClass="form-control" required="required" />
 										</div>
 									</div>
@@ -222,7 +211,7 @@
 										<h:outputLabel for="bairro" styleClass="control-label">Bairro </h:outputLabel>
 										<div class="controls">
 											<h:inputText id="bairro"
-												value="#{mBeanFuncionario.func.bairro}"
+												value="#{mBeanPsicologo.psico.bairro}"
 												styleClass="form-control" />
 										</div>
 									</div>
@@ -232,7 +221,7 @@
 										<h:outputLabel for="cidade" styleClass="control-label">Cidade </h:outputLabel>
 										<div class="controls">
 											<h:inputText id="cidade"
-												value="#{mBeanFuncionario.func.cidade}"
+												value="#{mBeanPsicologo.psico.cidade}"
 												styleClass="form-control" />
 										</div>
 									</div>
@@ -241,7 +230,7 @@
 									<div class="control-group">
 										<h:outputLabel for="uf" styleClass="control-label">Estado </h:outputLabel>
 										<div class="controls">
-											<h:inputText id="uf" value="#{mBeanFuncionario.func.uf}"
+											<h:inputText id="uf" value="#{mBeanPsicologo.psico.uf}"
 												styleClass="form-control" />
 										</div>
 									</div>
@@ -253,7 +242,7 @@
 										<h:outputLabel for="cTrabalho" styleClass="control-label">Nº Cart. de trabalho </h:outputLabel>
 										<div class="controls">
 											<h:inputText id="cTrabalho"
-												value="#{mBeanFuncionario.func.numCartTrab}" maxlength="15"
+												value="#{mBeanPsicologo.psico.numCartTrab}" maxlength="15"
 												class="form-control" />
 										</div>
 									</div>
@@ -263,7 +252,7 @@
 										<h:outputLabel for="numSerie" styleClass="control-label">Nº de Série </h:outputLabel>
 										<div class="controls">
 											<h:inputText id="numSerie"
-												value="#{mBeanFuncionario.func.serieCartTrab}"
+												value="#{mBeanPsicologo.psico.serieCartTrab}"
 												maxlength="15" class="form-control" />
 										</div>
 									</div>
@@ -273,7 +262,7 @@
 										<h:outputLabel for="dtAdm" value="Data da admissão" />
 										<div class="controls">
 											<p:calendar id="dtAdm" locale="pt" showButtonPanel="true"
-												navigator="true" value="#{mBeanFuncionario.func.admissao}"
+												navigator="true" value="#{mBeanPsicologo.psico.admissao}"
 												pattern="dd/MM/yyyy" mask="true">
 											</p:calendar>
 										</div>
@@ -285,7 +274,7 @@
 										<div class="controls">
 											<p:calendar id="dtDem" locale="pt" showButtonPanel="true"
 												navigator="true"
-												value="#{mBeanFuncionario.func.dataDemissao}"
+												value="#{mBeanPsicologo.psico.dataDemissao}"
 												pattern="dd/MM/yyyy" mask="true">
 											</p:calendar>
 										</div>
@@ -297,14 +286,17 @@
 									<div class="control-group">
 										<h:outputLabel for="cargo" styleClass="control-label">Cargo *</h:outputLabel>
 										<div class="controls">
-											<h:selectOneMenu id="cg" value="#{mBeanFuncionario.idCargo}"
-												layout="pageDirecti" styleClass="form-control"
-												converterMessage="Cargo deve ser selecionado!">
-												<f:selectItem itemValue="Selecione o cargo" />
-												<f:selectItems value="#{mBeanFuncionario.listCargo}"
-													var="cg" itemLabel="#{cg.cargo}" itemValue="#{cg.idCargo}"
-													required="required" />
-											</h:selectOneMenu>
+										<h:inputText id="cargo" value="#{mBeanPsicologo.cargoPsico.cargo}" disabled="true" class="form-control"  />
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-3">
+									<div class="control-group">
+										<h:outputLabel for="numCRP" styleClass="control-label">CRP * </h:outputLabel>
+										<div class="controls">
+											<h:inputText id="numCRP"
+												value="#{mBeanPsicologo.psico.numCRP}"
+												maxlength="15" class="form-control" />
 										</div>
 									</div>
 								</div>
@@ -312,7 +304,7 @@
 							<div class="row" style="margin-top: 2%">
 
 								<h:commandButton id="button-salvar"
-									action="#{mBeanFuncionario.salvar()}" value="Salvar"
+									action="#{mBeanPsicologo.salvar()}" value="Salvar"
 									class="btn btn-default dropdown-toggle" />
 							</div>
 
@@ -324,7 +316,7 @@
 										<h:outputText value="Data de nascimento " />
 										<div class="controls">
 											<h:outputText id="dateNasc"
-												value="#{mBeanFuncionario.func.dataNasc}"
+												value="#{mBeanPsicologo.psico.dataNasc}"
 												class="form-control" required="required">
 												<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-3" />
 											</h:outputText>
@@ -336,7 +328,7 @@
 										<h:outputText value="Data da admissão " />
 										<div class="controls">
 											<h:outputText id="dateAdm"
-												value="#{mBeanFuncionario.func.admissao}"
+												value="#{mBeanPsicologo.psico.admissao}"
 												class="form-control" required="required">
 												<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-3" />
 											</h:outputText>
@@ -348,7 +340,7 @@
 										<h:outputText value="Data da demissão " />
 										<div class="controls">
 											<h:outputText id="dateDem"
-												value="#{mBeanFuncionario.func.dataDemissao}"
+												value="#{mBeanPsicologo.psico.dataDemissao}"
 												class="form-control" required="required">
 												<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-3" />
 											</h:outputText>
@@ -397,6 +389,6 @@
                 day: 'Dia',
                 allDayText: 'Todo o Dia'
             };
- </script>
+        </script>
 
 </html>

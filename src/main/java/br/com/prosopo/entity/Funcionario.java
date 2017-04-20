@@ -29,7 +29,7 @@ public class Funcionario extends Pessoa implements Serializable{
 	@Column(name="ID")
 	private Long idFuncionario;
 	@Column(name="Matricula")
-	private Long matricula;
+	private String matricula;
 	@Column(name="Carteria_Trabalho", length= 20)
 	private String numCartTrab;
 	@Column(name="Serie_CartTrabalho", length= 20)
@@ -54,10 +54,10 @@ public class Funcionario extends Pessoa implements Serializable{
 	public void setIdFuncionario(Long idFuncionario) {
 		this.idFuncionario = idFuncionario;
 	}
-	public Long getMatricula() {
+	public String getMatricula() {
 		return matricula;
 	}
-	public void setMatricula(Long matricula) {
+	public void setMatricula(String matricula) {
 		this.matricula = matricula;
 	}
 	public String getNumCartTrab() {
@@ -101,7 +101,7 @@ public class Funcionario extends Pessoa implements Serializable{
 		super();
 	}
 
-	public Funcionario(Long idFuncionario, Long matricula, String numCartTrab, String serieCartTrab, Date admissao,
+	public Funcionario(Long idFuncionario, String matricula, String numCartTrab, String serieCartTrab, Date admissao,
 			Date dataDemissao,Cargo cargoFuncionario) {
 		super();
 		this.idFuncionario = idFuncionario;

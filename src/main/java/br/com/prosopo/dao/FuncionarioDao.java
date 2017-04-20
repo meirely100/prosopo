@@ -46,6 +46,5 @@ public class FuncionarioDao {
 		Funcionario func = em.find(Funcionario.class, id);
 		em.close();
 		return func;
-		//return em.find(Funcionario.class, id);
 	}
 }

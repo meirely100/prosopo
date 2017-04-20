@@ -1,13 +1,17 @@
 package br.com.prosopo.bean;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import org.primefaces.model.UploadedFileWrapper;
 
@@ -30,46 +34,74 @@ public class FuncionarioBean {
 	private Long idUser;
 
 	private UploadedFileWrapper arquivo;
+	String nomeFoto;
+	
+	//para retirar o psicologo da lista de cargos 
+	Cargo cargoPsic = new Cargo();
 
 	@PostConstruct
 	public void init() {
 		listar();
 		listFunc = new ArrayList<Funcionario>();
 		listFunc = funcDao.listarFuncionarios("");
+		
 		listCargo= new ArrayList<Cargo>();
 		listCargo = cDao.listarCargo("");
+		cargoPsic = cDao.buscaPorNome("Psicólogo");
+		if(listCargo.contains(cargoPsic)){
+			listCargo.remove(cargoPsic);
+		}
 
 	}
-
 	
-//	 * "C:\\development\\imagens\\funcionarios");
-//	 * this.func.setCaminhoFoto(this.arquivo.getTitulo()); }
-//	 */
+	
 
 	public String salvar() {
 		try {
-			// if(func.getIdFuncionario() == 0){
-			// func.setIdFuncionario(null);
-			// }
 			Cargo cargo = new CargoDao().buscaPorId(idCargo);
-			System.out.println("Cargo encontrado " + cargo);
-			func.setCargoFuncionario(cargo);			
-			funcDao.salvar(func);
-
-			String caminhoDaFoto = "c:\\temp\\" + func.getIdFuncionario() + ".jpeg";
-			InputStream is = arquivo.getInputstream();
-			FileOutputStream fs = new FileOutputStream(caminhoDaFoto);
-			int read = 0;
-			final byte[] bytes = new byte[1024];
-			while ((read = is.read(bytes)) != -1) {
-				fs.write(bytes, 0, read);
+			Date dataDem = func.getDataDemissao();
+			func.setCargoFuncionario(cargo);	
+			
+			if(dataDem == null){
+				func.setStatus("ativo");
 			}
-			fs.close();
-			func.setCaminhoFoto(caminhoDaFoto);
+			else if(dataDem != null){
+		
+				func.setStatus("inativo");
+			}
 			funcDao.salvar(func);
+			if(nomeFoto == null || nomeFoto == ""){
+				nomeFoto = arquivo.getFileName();
+			}
+			String pegarCaminho = func.getCaminhoFoto();
+			String testeArq = arquivo.getFileName();
+			if(nomeFoto != null && pegarCaminho == null){
+				//chamando metodo para salvar foto, caso o usuário não tenha foto ou seja novo usuário
+				imagem();
+				funcDao.salvar(func);
+			}
+			else if(!(nomeFoto == null) && !(nomeFoto == pegarCaminho)){
+				if(testeArq.hashCode()== 0){
+					
+				}
+				else{
+					//apago a imagem do diretorio
+					File file = new File(pegarCaminho);  
+					   file.delete();
+					   //chamo novamente o metodo para salvar a nova imagem inserida
+					   imagem();
+					   funcDao.salvar(func);
+				}
+				
+			}
+			
+			FacesContext.getCurrentInstance().addMessage(
+                    null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Sucesso!", "Salvo com sucesso!"));
 			recarregarLista();
 			return "listFuncionario.jsf";
 		} catch (Exception ef) {
+			FacesContext.getCurrentInstance().addMessage(
+                    null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Erro!", "Erro ao tentar salvar! Verifique dados do cadastro"));
 			System.out.println("erro: " + ef.getMessage());
 			return "funcionario.jsf";
 
@@ -83,10 +115,35 @@ public class FuncionarioBean {
 			//listCargo = new ArrayList<Cargo>();
 			func = funcEditar;
 			idCargo = func.getCargoFuncionario().getIdCargo();
+			
+			File file = new File("c:\\temp\\" + func.getIdFuncionario() + ".jpeg");
+	        if(file.exists()){
+	        	nomeFoto = file.toString();
+	        }
 			return "funcionario.jsf";
 		}
 		catch(Exception erro){
 			return "listFuncionario.jsf";
+		}
+		
+	}
+	public void imagem(){
+		try{
+//			nomeFoto = arquivo.getFileName();
+//			if(nomeFoto != null && nomeFoto.equals("")){
+				String caminhoDaFoto = "c:\\temp\\" + func.getIdFuncionario() + ".jpeg";
+				InputStream is = arquivo.getInputstream();
+				FileOutputStream fs = new FileOutputStream(caminhoDaFoto);
+				int read = 0;
+				final byte[] bytes = new byte[1024];
+				while ((read = is.read(bytes)) != -1) {
+					fs.write(bytes, 0, read);
+				}
+				fs.close();
+				func.setCaminhoFoto(caminhoDaFoto);
+			
+		}catch (Exception errImage){
+			System.out.println("erro: " + errImage.getMessage());
 		}
 		
 	}
@@ -110,6 +167,11 @@ public class FuncionarioBean {
 		try{
 			listCargo = new ArrayList<Cargo>();
 			listCargo = cDao.listarCargo("");
+			cargoPsic = new Cargo();
+			cargoPsic = cDao.buscaPorNome("Psicólogo");
+			if(listCargo.contains(cargoPsic)){
+				listCargo.remove(cargoPsic);
+			}
 			listFunc = new ArrayList<Funcionario>();
 			listFunc = funcDao.listarFuncionarios("");
 		}
@@ -127,8 +189,13 @@ public class FuncionarioBean {
 	}
 	
 	public void recarregarLista(){
-		listFunc = new FuncionarioDao().listarFuncionarios("");
 		listCargo = new CargoDao().listarCargo("");
+		cargoPsic = new Cargo();
+		cargoPsic = cDao.buscaPorNome("Psicólogo");
+		if(listCargo.contains(cargoPsic)){
+			listCargo.remove(cargoPsic);
+		}
+		listFunc = new FuncionarioDao().listarFuncionarios("");
 		}
 
 	// getts and setts
