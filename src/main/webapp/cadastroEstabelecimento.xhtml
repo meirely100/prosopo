@@ -1,0 +1,85 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf" 
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta charset="UTF-8" />
+	<title>Cadastro de estabelecimento</title>
+	<link href="recursos/css/bootstrap.css" rel="stylesheet"
+		type="text/css" />
+	<link href="recursos/css/ie10-viewport-bug-workaround.css"
+		rel="stylesheet" type="text/css" />
+	<link href="recursos/css/navbar.css" rel="stylesheet" type="text/css" />
+	<link href="recursos/css/jquery.dataTables.min.css" rel="stylesheet" />
+	<link href="recursos/css/nivo-lightbox.css" rel="stylesheet" />
+	<link href="recursos/css/animate.css" rel="stylesheet" />
+
+</h:head>
+
+<h:body>
+	<h:form id="form-Conta-Pagar" prependId="false"
+		styleClass="form-horizontal">
+		<div class="jumbotron">
+			<h1 style="text-align: center">Cadastro de estabelecimento</h1>
+			
+		</div>
+
+
+		<h:form>
+			<h:panelGrid columns="4"   width="80%">
+				<p:outputLabel value="Tipo 	de Pessoa" />
+				<p:selectOneMenu id="console" value="#{mBeanEstabelecimento.est.pessoaTipo}" style="width:125px">
+					
+					<f:selectItem itemLabel="Fisica" itemValue="Fisica" />
+					<f:selectItem itemLabel="Juridica" itemValue="Juridica" />
+
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Nome fantasia" />
+				<p:inputText maxlength="45" size="40"
+					value="#{mBeanEstabelecimento.est.nomeFantasia}" />
+
+
+
+				<p:outputLabel value="Razão Social" />
+				<p:inputText maxlength="45" size="30"
+					value="#{mBeanEstabelecimento.est.razaoSocial}" />
+
+				<p:outputLabel value="CPF / CNPJ " />
+				<p:inputText maxlength="45" size="30"
+					value="#{mBeanEstabelecimento.est.cpfCnpj}" />
+
+                <p:outputLabel value="Logomarca " />
+               
+				<h:form enctype="multipart/form-data">
+					<p:growl id="messages" showDetail="true" />
+
+					<p:fileUpload for="foto" id="logo" value="foto" mode="advanced"
+					   fileUploadListener="#{mBeanEstabelecimento.uploadLogo}"	 auto="true"/>
+
+					
+				</h:form>
+
+ 
+
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="2">
+				<h:commandButton update="@form" id="button-salvar"
+					action="#{mBeanContaPagar.Salvar()}" value="Salvar"
+					class="btn btn-default dropdown-toggle" />
+
+			</h:panelGrid>
+
+		</h:form>
+	</h:form>
+
+
+</h:body>
+
+
+</html>
