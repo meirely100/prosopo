@@ -12,10 +12,10 @@ import br.com.prosopo.entity.Funcionario;
 
 public class CargoDao {
 
-	private EntityManager manager;
-
+	private EntityManager em;
+	
 	public void salvar(Cargo c) {
-		EntityManager em = Conexao.getEntityManager();
+		em = Conexao.getEntityManager();
 		em.getTransaction().begin();
 		try{
 			if (c.getIdCargo() == null) {
@@ -32,7 +32,7 @@ public class CargoDao {
 
 	@SuppressWarnings("unchecked")
 	public List<Cargo> listarCargo(String busca) {
-		EntityManager em = Conexao.getEntityManager();
+		em = Conexao.getEntityManager();
 		String consulta = "select c from Cargo c where c.cargo like :busca order by c.cargo";
 		TypedQuery<Cargo> query = em.createQuery(consulta, Cargo.class);
 		query.setParameter("busca", "%" + busca + "%");
@@ -46,7 +46,7 @@ public class CargoDao {
 	public void excluir(Cargo excluirCargo) {
 
 		try{
-			EntityManager em = Conexao.getEntityManager();
+			em = Conexao.getEntityManager();
 			if(excluirCargo != null){
 				em.getTransaction().begin();// Inicia uma transação com o banco de dados.
 				em.remove(em.getReference(Cargo.class, excluirCargo.getIdCargo()));
@@ -62,29 +62,20 @@ public class CargoDao {
 				
 	}
 
-//	public Cargo buscaPorId(Long id) {
-//		System.out.println("meu id: " + id);
-//		return manager.find(Cargo.class, id);
-//		
-//	}
+	public Cargo buscaPorNome(String nome) {
 
-	public Cargo buscarNome(String nome) {
-
-		EntityManager em = Conexao.getEntityManager();
-
-		Query query = (Query) em.createQuery("select a from Cargo a where a.cargo like ? ");
-		query.setParameter(1, "%" + nome + "%");
-		if(query.getResultList() != null){
-			return (Cargo) query.getResultList();
-		}else{
-			return null;
-		}
-
+		em = Conexao.getEntityManager();
+		String consulta = "select c from Cargo c where c.cargo = :nome";
+		Query query = em.createQuery(consulta, Cargo.class);
+		query.setParameter("nome", nome);
+		Cargo busca = (Cargo) query.getSingleResult();
+		em.close();
+		return busca;
 	}
 	
 	public Cargo buscaPorId(Long id){
-		manager = Conexao.getEntityManager();
-		Query query = (Query) manager.createQuery("select c from Cargo c where c.idCargo = ?  ");
+		em = Conexao.getEntityManager();
+		Query query = (Query) em.createQuery("select c from Cargo c where c.idCargo = ?  ");
 		((javax.persistence.Query) query).setParameter(1, id);
 		return (Cargo) query.getSingleResult();
 	}

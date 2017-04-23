@@ -16,9 +16,14 @@ import br.com.prosopo.entity.Funcionario;
  * Servlet implementation class ServletImagemFunc
  */
 public class ServletImagemFunc extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	
        
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2460343170781333084L;
+
+	/**
      * @see HttpServlet#HttpServlet()
      */
     public ServletImagemFunc() {
