@@ -6,7 +6,9 @@ import javax.persistence.EntityManager;
 
 import br.com.prosopo.dao.Conexao;
 import br.com.prosopo.dao.ContaPagarDAO;
+import br.com.prosopo.dao.EstabelecimentoDAO;
 import br.com.prosopo.entity.ContaPagar;
+import br.com.prosopo.entity.Estabelecimento;
 
 public class Teste {
 
@@ -30,9 +32,14 @@ public class Teste {
 				
 				cpdao.Salvar(cp);
 		*/
+		Estabelecimento est = new Estabelecimento();
+		est.setNomeFantasia("teste");
+		est.setPessoaTipo("fisico");
+		est.setRazaoSocial("teste");
+		est.setCpfCnpj("12345677");
+		EstabelecimentoDAO estDAO = new EstabelecimentoDAO();
 		
-		
-		
+		estDAO.Salvar(est);
 		
 	}
 	
