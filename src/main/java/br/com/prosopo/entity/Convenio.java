@@ -40,7 +40,7 @@ public class Convenio extends Endereco{
 	@Column(name="Valor_Repasse", precision = 10, scale = 2)
 	private BigDecimal valorRepasse;
 	@Column(name="Data_VctoRecb")
-	@Range(min = 1, max = 31, message = "Tem que ser entre 1 à 31 dia de cada mês")
+	@Range(min = 1, max = 30, message = "Tem que ser entre 1 à 30 dia de cada mês")
 	private int diaVencimento;
 	@OneToMany(mappedBy = "convenio")
 	//@JoinColumn(name= "Pacientes")

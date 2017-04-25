@@ -37,7 +37,7 @@
 							<p:messages id="messages" autoUpdate="true" closable="true" />
 							<div class="row">
 								<div class="col-lg-12">
-									<h:dataTable id="tablePsicologos" value="#{mBeanConvenio.listConv}"
+									<h:dataTable id="table" value="#{mBeanConvenio.listConv}"
 										var="conv"
 										styleClass="table table-striped table-bordered table-hover">
 										<h:column>
@@ -79,4 +79,7 @@
 			</div>
 		</div>
 </h:body>
+<script src="recursos/js/jquery.dataTables.min.js" />
+<script src="recursos/js/designTable.js" />
+<script src="recursos/js/dataTablePortugues.js"></script>
 </html>

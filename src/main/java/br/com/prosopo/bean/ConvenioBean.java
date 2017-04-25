@@ -33,6 +33,8 @@ public class ConvenioBean {
 			convDao.salvar(conv);
 			FacesContext.getCurrentInstance().addMessage(
                     null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Sucesso!", "Salvo com sucesso!"));
+			listar();
+			System.out.println(conv.getValorRepasse());
 			return "listConvenio.jsf";
 		}catch (Exception erroSalvar){
 			FacesContext.getCurrentInstance().addMessage(
