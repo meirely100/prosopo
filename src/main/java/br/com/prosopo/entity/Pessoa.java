@@ -40,6 +40,8 @@ public abstract class Pessoa extends Endereco implements Serializable {
 	private String residencial;
 	@Column(name="TelefoneRecado")
 	private String recado;
+	@Column (name="contatoRecado")
+	private String contatoRecado;
 	@Column(name="Foto")
 	private String caminhoFoto;
 	@Column(name="Status")
@@ -142,6 +144,14 @@ public abstract class Pessoa extends Endereco implements Serializable {
 		this.recado = recado;
 	}
 
+	public String getContatoRecado() {
+		return contatoRecado;
+	}
+
+	public void setContatoRecado(String contatoRecado) {
+		this.contatoRecado = contatoRecado;
+	}
+
 	public String getCaminhoFoto() {
 		return caminhoFoto;
 	}
@@ -160,8 +170,9 @@ public abstract class Pessoa extends Endereco implements Serializable {
 	//Construtores
 		public Pessoa(){
 		}
-	public Pessoa(String nome, String sobrenome, String cpf, String rg, String sexo, Date dataNasc,
-			String estadoCivil, String eMail, String homePage, String celular, String residencial, String recado,
+
+	public Pessoa(String nome, String sobrenome, String cpf, String rg, String sexo, Date dataNasc, String estadoCivil,
+			String eMail, String homePage, String celular, String residencial, String recado, String contatoRecado,
 			String caminhoFoto, String status) {
 		super();
 		this.nome = nome;
@@ -176,10 +187,9 @@ public abstract class Pessoa extends Endereco implements Serializable {
 		this.celular = celular;
 		this.residencial = residencial;
 		this.recado = recado;
+		this.contatoRecado = contatoRecado;
 		this.caminhoFoto = caminhoFoto;
 		this.status = status;
 	}
-
-	
 	
 }

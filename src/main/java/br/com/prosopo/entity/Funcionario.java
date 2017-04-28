@@ -40,13 +40,12 @@ public class Funcionario extends Pessoa implements Serializable{
 	@Temporal(value=TemporalType.DATE)
 	@Column(name="Demissao")
 	private Date dataDemissao;
-	@ OneToOne
+	@ManyToOne
 	@JoinColumn (name = "Fk_Cargo", nullable=false)
 	private Cargo cargoFuncionario;
 //	@OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.EAGER, orphanRemoval = false)
 //    @JoinColumn(name="USER_ID", nullable=true)
 ////    @PrimaryKeyJoinColumn
-//	private Usuario user;
 	//getts and setts
 	public Long getIdFuncionario() {
 		return idFuncionario;

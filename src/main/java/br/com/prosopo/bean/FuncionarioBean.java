@@ -26,7 +26,6 @@ public class FuncionarioBean {
 	private Funcionario func = new Funcionario();
 	private FuncionarioDao funcDao = new FuncionarioDao();
 	private CargoDao cDao = new CargoDao();
-	private String cep;
 	private List<Funcionario> listFunc;
 	private List<Cargo> listCargo;
 
@@ -94,9 +93,6 @@ public class FuncionarioBean {
 				}
 				
 			}
-			
-			FacesContext.getCurrentInstance().addMessage(
-                    null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Sucesso!", "Salvo com sucesso!"));
 			recarregarLista();
 			return "listFuncionario.jsf";
 		} catch (Exception ef) {
@@ -213,14 +209,6 @@ public class FuncionarioBean {
 
 	public void setFuncDao(FuncionarioDao funciDao) {
 		funcDao = funciDao;
-	}
-
-	public String getCep() {
-		return cep;
-	}
-
-	public void setCep(String cep) {
-		this.cep = cep;
 	}
 
 	public List<Funcionario> getListFunc() {

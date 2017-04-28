@@ -25,7 +25,7 @@ public class Usuario {
 	@Column(name="TIPO_PERMISSAO")
 	@JoinColumn(name="PERMISSAO", nullable=true)
 	private Permissoes permissoes;
-
+	
 	// getts and setts
 	public Long getIdUsuario() {
 		return idUsuario;
@@ -59,18 +59,18 @@ public class Usuario {
 		this.permissoes = permissoes;
 	}
 	
-	// Construtores
+
+		// Construtores
 		public Usuario() {
 
 		}
-	
 	public Usuario(Long idUsuario, String login, String senha, Permissoes permissoes) {
-		super();
-		this.idUsuario = idUsuario;
-		this.login = login;
-		this.senha = senha;
-		this.permissoes = permissoes;
-	}
+			super();
+			this.idUsuario = idUsuario;
+			this.login = login;
+			this.senha = senha;
+			this.permissoes = permissoes;
+		}
 
 	@Override
 	public int hashCode() {
@@ -78,6 +78,8 @@ public class Usuario {
 		int result = 1;
 		result = prime * result + ((idUsuario == null) ? 0 : idUsuario.hashCode());
 		result = prime * result + ((login == null) ? 0 : login.hashCode());
+		result = prime * result + ((permissoes == null) ? 0 : permissoes.hashCode());
+		result = prime * result + ((senha == null) ? 0 : senha.hashCode());
 		return result;
 	}
 
@@ -99,6 +101,13 @@ public class Usuario {
 			if (other.login != null)
 				return false;
 		} else if (!login.equals(other.login))
+			return false;
+		if (permissoes != other.permissoes)
+			return false;
+		if (senha == null) {
+			if (other.senha != null)
+				return false;
+		} else if (!senha.equals(other.senha))
 			return false;
 		return true;
 	}

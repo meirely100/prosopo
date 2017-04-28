@@ -1,0 +1,85 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta charset="utf-8" />
+	<title>Lista de Convenios</title>
+	<link href="recursos/css/bootstrap.css" rel="stylesheet"
+		type="text/css" />
+	<link href="recursos/css/ie10-viewport-bug-workaround.css"
+		rel="stylesheet" type="text/css" />
+	<link href="recursos/css/navbar.css" rel="stylesheet" type="text/css" />
+	<link href="recursos/css/jquery.dataTables.min.css" rel="stylesheet" />
+	<link href="recursos/css/nivo-lightbox.css" rel="stylesheet" />
+	<link href="recursos/css/animate.css" rel="stylesheet" />
+	<script src="recursos/js/buscacep.js" type="text/javascript" />
+	<script src="recursos/js/mascara.js" type="text/javascript" />
+</h:head>
+
+<h:body>
+<div
+			style="margin-top: 5px; margin-bottom: 5px; margin-left: -2%; margin-right: -2%;">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 style="text-align: center;">Lista de Convênios</h4>
+					</div>
+					<div class="panel-body">
+						<h:form id="form-list-convenio" prependId="false" styleClass="form-horizontal">
+							<p:growl id="growl" showDetail="true" rendered="false" />
+							<p:messages id="messages" autoUpdate="true" closable="true" />
+							<div class="row">
+								<div class="col-lg-12">
+									<h:dataTable id="table" value="#{mBeanConvenio.listConv}"
+										var="conv"
+										styleClass="table table-striped table-bordered table-hover">
+										<h:column>
+											<f:facet name="header">
+												<h:outputText value="Código" />
+											</f:facet>
+											<h:outputText value="#{conv.idConvenio}" />
+										</h:column>
+										<h:column>
+											<f:facet name="header">
+												<h:outputText value="Razão Social" />
+											</f:facet>
+											<h:outputText value="#{conv.razaoSocial}" />
+										</h:column>
+										<h:column>
+											<f:facet name="header">
+												<h:outputText value="Nome Fantasia" />
+											</f:facet>
+											<h:outputText value="#{conv.nomeFantasia}" />
+										</h:column>
+										<h:column>
+											<f:facet name="header">
+												<h:outputText value="CNPJ" />
+											</f:facet>
+											<h:outputText value="#{conv.cnpj}" />
+										</h:column>
+										<h:column style="text-align: center">
+											<f:facet name="header">Editar</f:facet>
+											<h:commandButton value="Editar" name="botao" id="button-edit"
+												action="#{mBeanConvenio.editar(conv)}"
+												class="btn btn-default dropdown-toggle" />
+										</h:column>
+									</h:dataTable>
+								</div>
+							</div>
+						</h:form>
+					</div>
+				</div>
+			</div>
+		</div>
+</h:body>
+<script src="recursos/js/jquery.dataTables.min.js" />
+<script src="recursos/js/designTable.js" />
+<script src="recursos/js/dataTablePortugues.js"></script>
+</html>
