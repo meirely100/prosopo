@@ -5,11 +5,14 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 import br.com.prosopo.entity.Estabelecimento;
 
 public class EstabelecimentoDAO {
 
-	private EntityManager manager;
+	private EntityManager em;
 
 	// Metodo Salvar
 
@@ -35,7 +38,7 @@ public class EstabelecimentoDAO {
 
 		EntityManager em = Conexao.getEntityManager();
 		Query query = (Query) em
-				.createQuery("select a from Estabelecimento a where a.nomeFanasia like ? order by a.nomeFantasia");
+				.createQuery("select a from Estabelecimento a where a.nomeFantasia like ? order by a.nomeFantasia");
 		query.setParameter(1, "%" + nomeFantasia + "%");
 		return query.getResultList();
 	}
@@ -63,6 +66,27 @@ public class EstabelecimentoDAO {
 		
 		
 		
+		
+		
+		
+		
+		//Metodo merge modificado 
+		
 	
+	   @SuppressWarnings("unchecked")
+		public Estabelecimento merge(Estabelecimento est) {
+			EntityManager em = Conexao.getEntityManager();
+			
+
+			try {
+				em.getTransaction().begin();
+				Estabelecimento retorno = (Estabelecimento) em.merge(est);
+				em.getTransaction().commit();
+				return retorno;
+			} 
+			finally {
+				em.close();
+			}
 	
+		}
 }
