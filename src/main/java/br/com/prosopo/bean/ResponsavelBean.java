@@ -9,6 +9,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import br.com.prosopo.dao.CargoDao;
+import br.com.prosopo.dao.FuncionarioDao;
 import br.com.prosopo.dao.ResponsavelFinanceiroDao;
 import br.com.prosopo.entity.Cargo;
 import br.com.prosopo.entity.Funcionario;
@@ -30,8 +32,8 @@ public class ResponsavelBean {
 
 	public String salvar() {
 		try {
-			rf = new ResponsavelFinanceiro();
 			rfDao.salvar(rf);
+			recarregarLista();
 			return "listResponsavel.jsf";
 
 		} catch (Exception ef) {
@@ -42,18 +44,27 @@ public class ResponsavelBean {
 
 		}
 	}
-	
-	public String editar(ResponsavelFinanceiro respEdit){
-		try{
+
+	public String editar(ResponsavelFinanceiro respEdit) {
+		try {
 			rf = new ResponsavelFinanceiro();
 			rf = respEdit;
 			return "responsavel.jsf";
-		}
-		catch (Exception erro){
+		} catch (Exception erro) {
 			System.out.println("erro: " + erro.getMessage());
 			return "listResponsavel.jsf";
 		}
-		
+
+	}
+
+	public void recarregarLista() {
+
+		listRespFin = new ResponsavelFinanceiroDao().listarResponsavel("");
+	}
+	
+	public void limpar(){
+	rf = new ResponsavelFinanceiro();
+		init();	
 	}
 
 	// getts e setts

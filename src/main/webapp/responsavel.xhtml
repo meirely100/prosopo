@@ -1,16 +1,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:composite="http://java.sun.com/jsf/composite"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf" 
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta charset="utf-8" />
-	<title>Responsavel</title>
+	<title>Responsável Financeiro</title>
 	<link href="recursos/css/bootstrap.css" rel="stylesheet"
 		type="text/css" />
 	<link href="recursos/css/ie10-viewport-bug-workaround.css"
@@ -19,9 +17,9 @@
 	<link href="recursos/css/jquery.dataTables.min.css" rel="stylesheet" />
 	<link href="recursos/css/nivo-lightbox.css" rel="stylesheet" />
 	<link href="recursos/css/animate.css" rel="stylesheet" />
-
+	<script src="recursos/js/buscacep.js" type="text/javascript" />
+	<script src="recursos/js/mascara.js" type="text/javascript" />
 </h:head>
-
 <h:body>
 	<div class="container">
 		<nav class="navbar navbar-default">
@@ -39,10 +37,10 @@
 			</div>
 		</nav>
 		<div class="panel-heading">
-			<h4 style="text-align: center;">Cadastro Responsável Financeiro</h4>
+			<h4 style="text-align: center;">Cadastro de Responsável financeiro</h4>
 		</div>
 		<div class="panel-body">
-			<h:form id="form-conv" enctype="multipart/form-data"
+			<h:form id="form-respFin" enctype="multipart/form-data"
 				prependId="false" accept-charset="UTF-8">
 				<p:growl id="growl" showDetail="true" rendered="false" />
 				<p:messages id="messages" autoUpdate="true" closable="true" />
@@ -51,41 +49,39 @@
 						<fieldset>
 							<h:inputHidden value="#{mBeanResponsavel.rf.idResponsavel}" />
 							<div class="row">
-								<div class="col-lg-12">
+								<div class="col-lg-4">
 									<div class="control-group">
-										<h:outputLabel for="status" styleClass="control-label"
-											value="Situação *" />
+										<h:outputLabel for="nome" styleClass="control-label"
+											value="Nome *" />
 										<div class="controls">
-											<h:selectOneRadio id="status"
-												value="#{mBeanConvenio.conv.status}" required="required"
-												class="col-sm-2 control-label">
-												<f:selectItem itemLabel="Ativo" itemValue="#{true}" />
-												<f:selectItem itemLabel="Inativo" itemValue="#{false}" />
-											</h:selectOneRadio>
+											<h:inputText id="nome" value="#{mBeanResponsavel.rf.nome}"
+												maxlength="30" class="form-control" required="required" />
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="row">
-								<div class="col-lg-6">
+								<div class="col-lg-5">
 									<div class="control-group">
-										<h:outputLabel for="razaoSocial" styleClass="control-label"
-											value="Razão Social *" />
+										<h:outputLabel for="sobrenome" styleClass="control-label"
+											value="Sobrenome *" />
 										<div class="controls">
-											<h:inputText id="razaoSocial"
-												value="#{mBeanConvenio.conv.razaoSocial}" maxlength="30"
+											<h:inputText id="sobrenome"
+												value="#{mBeanResponsavel.rf.sobrenome}" maxlength="40"
 												class="form-control" required="required" />
 										</div>
 									</div>
 								</div>
-								<div class="col-lg-6">
+								<div class="col-lg-3">
 									<div class="control-group">
-										<h:outputLabel for="nomeFant" styleClass="control-label"
-											value="Nome Fantasia *" />
+										<h:outputLabel for="sexo" styleClass="control-label"
+											value="Sexo *" />
 										<div class="controls">
-											<h:inputText id="nomeFant"
-												value="#{mBeanConvenio.conv.nomeFantasia}" maxlength="40"
-												class="form-control" required="required" />
+											<h:selectOneMenu id="sexo"
+												value="#{mBeanResponsavel.rf.sexo}" class="form-control"
+												required="required">
+												<f:selectItem itemValue="Selecione" />
+												<f:selectItem itemValue="Feminino" itemLabel="Feminino" />
+												<f:selectItem itemValue="Masculino" itemLabel="Masculino" />
+											</h:selectOneMenu>
 										</div>
 									</div>
 								</div>
@@ -93,10 +89,10 @@
 							<div class="row">
 								<div class="col-lg-3">
 									<div class="control-group">
-										<h:outputLabel for="cnpj" styleClass="control-label"
-											value="CNPJ *" />
+										<h:outputLabel for="rg" styleClass="control-label"
+											value="RG *" />
 										<div class="controls">
-											<h:inputText id="cnpj" value="#{mBeanConvenio.conv.cnpj}"
+											<h:inputText id="rg" value="#{mBeanResponsavel.rf.rg}"
 												maxlength="10" class="form-control" required="required" />
 										</div>
 									</div>
@@ -104,32 +100,32 @@
 
 								<div class="col-lg-3">
 									<div class="control-group">
-										<h:outputLabel for="inscEst" styleClass="control-label"
-											value="Inscrição Estadual" />
+										<h:outputLabel for="cpf" styleClass="control-label"
+											value="CPF *" />
 										<div class="controls">
-											<h:inputText id="inscEst"
-												value="#{mBeanConvenio.conv.inscEstadual}" maxlength="10"
+											<h:inputText id="cpf" value="#{mBeanResponsavel.rf.cpf}"
+												maxlength="15" class="form-control" />
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-3">
+									<div class="control-group">
+										<h:outputLabel for="celular" styleClass="control-label"
+											value="Celular" />
+										<div class="controls">
+											<h:inputText id="celular"
+												value="#{mBeanResponsavel.rf.celular}" class="form-control" />
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-3">
+									<div class="control-group">
+										<h:outputLabel for="residencial" styleClass="control-label"
+											value="Telefone Residencial" />
+										<div class="controls">
+											<h:inputText id="residencial"
+												value="#{mBeanResponsavel.rf.residencial}"
 												class="form-control" />
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-3">
-									<div class="control-group">
-										<h:outputLabel for="telefone1" styleClass="control-label"
-											value="Telefone 1" />
-										<div class="controls">
-											<h:inputText id="telefone1"
-												value="#{mBeanConvenio.conv.telefone1}" class="form-control" />
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-3">
-									<div class="control-group">
-										<h:outputLabel for="telefone2" styleClass="control-label"
-											value="Telefone 2" />
-										<div class="controls">
-											<h:inputText id="telefone2"
-												value="#{mBeanConvenio.conv.telefone2}" class="form-control" />
 										</div>
 									</div>
 								</div>
@@ -137,23 +133,11 @@
 							<div class="row">
 								<div class="col-lg-6">
 									<div class="control-group">
-										<h:outputLabel for="homePage" styleClass="control-label"
-											value="Home Page " />
-										<div class="controls">
-											<h:inputText id="homePage"
-												value="#{mBeanConvenio.conv.homePage}" maxlength="30"
-												class="form-control" />
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-6">
-									<div class="control-group">
 										<h:outputLabel for="email" styleClass="control-label"
 											value="E-mail " />
 										<div class="controls">
-											<h:inputText id="email"
-												value="#{mBeanFuncionario.func.eMail}" maxlength="30"
-												class="form-control" />
+											<h:inputText id="email" value="#{mBeanResponsavel.rf.eMail}"
+												maxlength="30" class="form-control" />
 										</div>
 									</div>
 								</div>
@@ -164,7 +148,7 @@
 										<h:outputLabel for="cep" styleClass="control-label"
 											value="CEP" />
 										<div class="controls">
-											<h:inputText id="cep" value="#{mBeanConvenio.conv.cep}"
+											<h:inputText id="cep" value="#{mBeanResponsavel.rf.cep}"
 												styleClass="form-control" />
 										</div>
 									</div>
@@ -175,7 +159,7 @@
 											value="Logradouro" />
 										<div class="controls">
 											<h:inputText id="logradouro"
-												value="#{mBeanConvenio.conv.logradouro}"
+												value="#{mBeanResponsavel.rf.logradouro}"
 												styleClass="form-control" />
 										</div>
 									</div>
@@ -185,7 +169,8 @@
 										<h:outputLabel for="numero" styleClass="control-label"
 											value="Número" />
 										<div class="controls">
-											<h:inputText id="numero" value="#{mBeanConvenio.conv.numero}"
+											<h:inputText id="numero"
+												value="#{mBeanResponsavel.rf.numero}"
 												styleClass="form-control" required="required" />
 										</div>
 									</div>
@@ -198,7 +183,7 @@
 											value="Complemento" />
 										<div class="controls">
 											<h:inputText id="complemento"
-												value="#{mBeanConvenio.conv.complemento}"
+												value="#{mBeanResponsavel.rf.complemento}"
 												styleClass="form-control" required="required" />
 										</div>
 									</div>
@@ -210,7 +195,8 @@
 										<h:outputLabel for="bairro" styleClass="control-label"
 											value="Bairro" />
 										<div class="controls">
-											<h:inputText id="bairro" value="#{mBeanConvenio.conv.bairro}"
+											<h:inputText id="bairro"
+												value="#{mBeanResponsavel.rf.bairro}"
 												styleClass="form-control" />
 										</div>
 									</div>
@@ -220,7 +206,8 @@
 										<h:outputLabel for="cidade" styleClass="control-label"
 											value="Cidade" />
 										<div class="controls">
-											<h:inputText id="cidade" value="#{mBeanConvenio.conv.cidade}"
+											<h:inputText id="cidade"
+												value="#{mBeanResponsavel.rf.cidade}"
 												styleClass="form-control" />
 										</div>
 									</div>
@@ -230,30 +217,8 @@
 										<h:outputLabel for="uf" styleClass="control-label"
 											value="Estado" />
 										<div class="controls">
-											<h:inputText id="uf" value="#{mBeanConvenio.conv.uf}"
+											<h:inputText id="uf" value="#{mBeanResponsavel.rf.uf}"
 												styleClass="form-control" />
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-lg-3">
-									<div class="control-group">
-										<h:outputLabel for="dtFechamento" value="Data de Fechamento" />
-										<div class="controls">
-											<p:spinner id="dtFechamento"
-												value="#{mBeanConvenio.conv.dataRecebimento}" min="0"
-												max="31" />
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-3">
-									<div class="control-group">
-										<h:outputLabel for="valor" styleClass="control-label"
-											value="Valor de repasse por consulta" />
-										<div class="controls">
-											<h:inputText id="valor"
-												value="#{mBeanConvenio.conv.valorRepasse}" />
 										</div>
 									</div>
 								</div>
@@ -261,15 +226,9 @@
 							<div class="row" style="margin-top: 2%">
 
 								<h:commandButton id="button-salvar"
-									action="#{mBeanConvenio.salvar()}" value="Salvar"
+									action="#{mBeanResponsavel.salvar()}" value="Salvar"
 									class="btn btn-default dropdown-toggle" />
 							</div>
-
-							<p:dialog modal="true" resizable="false" header="Values"
-								widgetVar="dlg" showEffect="fold">
-								<h:outputText value="Data de Fechamento " />
-								<h:outputText value="#{mBeanConvenio.conv.dataRecebimento}" />
-							</p:dialog>
 						</fieldset>
 					</div>
 				</div>
@@ -277,14 +236,5 @@
 		</div>
 	</div>
 </h:body>
-
-<!-- tabela -->
-<script src="recursos/js/jquery.dataTables.min.js" />
-<script src="recursos/js/designTable.js" />
-<script src="recursos/js/dataTablePortugues.js"></script>
-
-<script src="recursos/js/buscacep.js" type="text/javascript" />
-<script src="recursos/js/mascara.js" type="text/javascript" />
-<script src="recursos/js/jquery.min.js" type="text/javascript"></script>
 
 </html>
