@@ -30,7 +30,7 @@ public class ContaPagarDAO {
 
 	}
 
-	// Lisar Contas a pagar
+	// Listar Contas a pagar
 
 	@SuppressWarnings("unchecked")
 	public List<ContaPagar> ListarContaP(String titulo) {
@@ -77,7 +77,5 @@ public class ContaPagarDAO {
 		}else{
 			return null;
 		}
-
 	}
-
 }

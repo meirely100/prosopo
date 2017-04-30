@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:jsf="http://xmlns.jcp.org/jsf" 
+	
 	xmlns:p="http://primefaces.org/ui">
 	
 <h:head>
@@ -44,31 +44,31 @@
 			
 			<h:panelGrid columns="4" width="100%">
 				<p:outputLabel value="Titulo da Divida" />
-				<p:inputText maxlength="45" size="30" />
+				<p:inputText maxlength="45" size="30" value="#{mBeanContaReceber.contaR.titulo}"/>
 
 				<p:outputLabel value="Valor" />
-				<p:inputNumber maxlength="45" size="30" />
+				<p:inputNumber maxlength="45" size="30" value="#{mBeanContaReceber.contaR.valor}" />
 				
 				<p:outputLabel value="Descrição" />
-				<p:inputTextarea maxlength="100" size="100" />
+				<p:inputTextarea maxlength="100" size="100" value="#{mBeanContaReceber.contaR.descricao}"/>
 				
 				<p:outputLabel value="Forma de Pagamento" />
-				<p:inputText maxlength="45" size="30" />
+				<p:inputText maxlength="45" size="30" value="#{mBeanContaReceber.contaR.formaPagamento}"/>
 				
 				<p:outputLabel value="status" />
-				<p:inputText maxlength="45" size="30" />
+				<p:inputText maxlength="45" size="30" value="#{mBeanContaReceber.contaR.status}" />
 				
 				
 				<p:outputLabel for="button" value="Data Vencimento:" />
-                <p:calendar id="button" value="#{calendarView.date3}" showOn="button" />
+                <p:calendar id="button" value="#{mBeanContaReceber.contaR.dataVencimento}" showOn="button" />
                 
                 <p:outputLabel for="popup" value="Data de Pagamento:" />
-                <p:calendar id="popup" value="#{calendarView.date2}" />
+                <p:calendar id="popup" value="#{mBeanContaReceber.contaR.dataPagamento}" />
                 
 			</h:panelGrid>
 			<h:panelGrid columns="2" style="text-align: center" >
 				<h:commandButton id="button-salvar" style="text-align: center"
-					jsf:action="#{mBeanContaReceber.Salvar()}" value="Salvar"
+					action="#{mBeanContaReceber.Salvar()}" value="Salvar"
 					class="btn btn-default dropdown-toggle"  />
 				<p:commandButton  style="text-align: center" value="Cancelar" oncomplete="PF('dialogo').hide();" />
 
