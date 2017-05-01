@@ -16,6 +16,8 @@ public class ResponsavelFinanceiro extends Endereco {
 	private Long idResponsavel;
 	@Column(name="Nome")
 	private String nome;
+	@Column (name="Sobrenome")
+	private String sobrenome;
 	@Column(name="RG")
 	private String rg;
 	@Column(name="CPF")
@@ -26,7 +28,8 @@ public class ResponsavelFinanceiro extends Endereco {
 	private String celular;
 	@Column(name="Tel_Residencial")
 	private String residencial;
-	
+	@Column(name="Email")
+	private String eMail;
 	//getts e setts
 	public Long getIdResponsavel() {
 		return idResponsavel;
@@ -39,6 +42,12 @@ public class ResponsavelFinanceiro extends Endereco {
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	public String getSobrenome() {
+		return sobrenome;
+	}
+	public void setSobrenome(String sobrenome) {
+		this.sobrenome = sobrenome;
 	}
 	public String getRg() {
 		return rg;
@@ -70,30 +79,41 @@ public class ResponsavelFinanceiro extends Endereco {
 	public void setResidencial(String residencial) {
 		this.residencial = residencial;
 	}
-	//construtores
-	public ResponsavelFinanceiro() {
-		super();
-		// TODO Auto-generated constructor stub
+	public String geteMail() {
+		return eMail;
 	}
-	public ResponsavelFinanceiro(Long idResponsavel, String nome, String rg, String cpf, String sexo, String celular,
-			String residencial) {
+	public void seteMail(String eMail) {
+		this.eMail = eMail;
+	}
+	//construtores
+	public ResponsavelFinanceiro(Long idResponsavel, String nome, String sobrenome, String rg, String cpf, String sexo,
+			String celular, String residencial, String eMail) {
 		super();
 		this.idResponsavel = idResponsavel;
 		this.nome = nome;
+		this.sobrenome = sobrenome;
 		this.rg = rg;
 		this.cpf = cpf;
 		this.sexo = sexo;
 		this.celular = celular;
 		this.residencial = residencial;
+		this.eMail = eMail;
+	}
+	public ResponsavelFinanceiro() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
+		result = prime * result + ((eMail == null) ? 0 : eMail.hashCode());
 		result = prime * result + ((idResponsavel == null) ? 0 : idResponsavel.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		result = prime * result + ((rg == null) ? 0 : rg.hashCode());
+		result = prime * result + ((sexo == null) ? 0 : sexo.hashCode());
+		result = prime * result + ((sobrenome == null) ? 0 : sobrenome.hashCode());
 		return result;
 	}
 	@Override
@@ -110,6 +130,11 @@ public class ResponsavelFinanceiro extends Endereco {
 				return false;
 		} else if (!cpf.equals(other.cpf))
 			return false;
+		if (eMail == null) {
+			if (other.eMail != null)
+				return false;
+		} else if (!eMail.equals(other.eMail))
+			return false;
 		if (idResponsavel == null) {
 			if (other.idResponsavel != null)
 				return false;
@@ -125,8 +150,17 @@ public class ResponsavelFinanceiro extends Endereco {
 				return false;
 		} else if (!rg.equals(other.rg))
 			return false;
+		if (sexo == null) {
+			if (other.sexo != null)
+				return false;
+		} else if (!sexo.equals(other.sexo))
+			return false;
+		if (sobrenome == null) {
+			if (other.sobrenome != null)
+				return false;
+		} else if (!sobrenome.equals(other.sobrenome))
+			return false;
 		return true;
 	}
-	
 
 }
