@@ -57,8 +57,7 @@ public class ConvenioBean {
 			return "convenio.jsf";
 		}
 		catch(Exception edt){
-			conv = new Convenio();
-			conv = convEditar;
+			System.out.println("erro: " + edt.getMessage());
 			return "listConvenio.jsf";
 		}
 		

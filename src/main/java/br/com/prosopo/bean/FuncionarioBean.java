@@ -50,10 +50,7 @@ public class FuncionarioBean {
 		if(listCargo.contains(cargoPsic)){
 			listCargo.remove(cargoPsic);
 		}
-
 	}
-	
-	
 
 	public String salvar() {
 		try {
